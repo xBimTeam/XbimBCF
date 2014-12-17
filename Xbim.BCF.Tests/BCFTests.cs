@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Schema;
@@ -12,6 +13,7 @@ namespace Xbim.BCF.Tests
     [TestClass]
     public class BCFTests
     {
+        private static String AppPath = Directory.GetParent(typeof(BCFTests).Assembly.ManifestModule.FullyQualifiedName).FullName;
         private BCFTestsXMLHelper xmlSchemaValidator;
 
         [TestInitialize]
@@ -23,7 +25,7 @@ namespace Xbim.BCF.Tests
         [TestMethod]
         public void DeserializeMarkupXML()
         {
-            string file = Directory.GetCurrentDirectory() + "/XML/markup.xml";
+            string file = Path.Combine(AppPath, "XML\\markup.xml");
             MarkupXMLFile xmlObj = new MarkupXMLFile(XDocument.Load(file));
             //Comments
             Assert.IsTrue(xmlObj.Comments.Count > 0);
@@ -68,7 +70,7 @@ namespace Xbim.BCF.Tests
         [TestMethod]
         public void DeserializeProjectXML()
         {
-            string file = Directory.GetCurrentDirectory() + "/XML/project.xml";
+            string file = Path.Combine(AppPath, "XML\\project.xml");
             ProjectXMLFile xmlObj = new ProjectXMLFile(XDocument.Load(file));
 
             Assert.IsNotNull(xmlObj.ExtensionSchema);
@@ -80,7 +82,7 @@ namespace Xbim.BCF.Tests
         [TestMethod]
         public void DeserializeVersionXML()
         {
-            string file = Directory.GetCurrentDirectory() + "/XML/version.xml";
+            string file = Path.Combine(AppPath, "XML\\version.xml");
             VersionXMLFile xmlObj = new VersionXMLFile(XDocument.Load(file));
 
             Assert.IsNotNull(xmlObj.VersionId);
@@ -90,7 +92,7 @@ namespace Xbim.BCF.Tests
         [TestMethod]
         public void DeserializeVisualizationXML()
         {
-            string file = Directory.GetCurrentDirectory() + "/XML/visinfo.xml";
+            string file = Path.Combine(AppPath, "XML\\visinfo.xml");
             VisualizationXMLFile xmlObj = new VisualizationXMLFile(XDocument.Load(file));
 
             //Bitmaps
