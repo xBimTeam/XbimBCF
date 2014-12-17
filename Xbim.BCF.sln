@@ -5,12 +5,12 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xbim.BCF", "Xbim.BCF\Xbim.BCF.csproj", "{60BD2BFD-A99E-4CDD-9B82-88A96E4380CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xbim.BCF.Tests", "Xbim.BCF.Tests\Xbim.BCF.Tests.csproj", "{45D63C66-B729-481D-9FED-A82690ED3AE5}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7496DDF4-4886-4144-987F-62704F5A16A3}"
 	ProjectSection(SolutionItems) = preProject
 		SharedAssemblyInfo.cs = SharedAssemblyInfo.cs
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xbim.BCF.Tests", "Xbim.BCF.Tests\Xbim.BCF.Tests.csproj", "{F53F4ACE-8682-4D65-90B2-5D9686E99AEE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,10 +22,10 @@ Global
 		{60BD2BFD-A99E-4CDD-9B82-88A96E4380CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{60BD2BFD-A99E-4CDD-9B82-88A96E4380CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{60BD2BFD-A99E-4CDD-9B82-88A96E4380CD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{45D63C66-B729-481D-9FED-A82690ED3AE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{45D63C66-B729-481D-9FED-A82690ED3AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{45D63C66-B729-481D-9FED-A82690ED3AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{45D63C66-B729-481D-9FED-A82690ED3AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F53F4ACE-8682-4D65-90B2-5D9686E99AEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53F4ACE-8682-4D65-90B2-5D9686E99AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53F4ACE-8682-4D65-90B2-5D9686E99AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53F4ACE-8682-4D65-90B2-5D9686E99AEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
