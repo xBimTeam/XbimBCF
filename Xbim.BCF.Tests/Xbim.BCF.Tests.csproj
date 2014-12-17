@@ -60,22 +60,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="XSD\markup.xsd">
+    <Content Include="XSD\markup.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="XSD\project.xsd">
+    </Content>
+    <Content Include="XSD\project.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="XSD\version.xsd">
+    </Content>
+    <Content Include="XSD\version.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="XSD\visinfo.xsd">
+    </Content>
+    <Content Include="XSD\visinfo.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xbim.BCF\Xbim.BCF.csproj">
