@@ -32,6 +32,8 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -42,7 +44,31 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="AttrIDNode.cs" />
+    <Compile Include="BCF.cs" />
+    <Compile Include="MarkupXMLFile.cs" />
+    <Compile Include="ProjectXMLFile.cs" />
+    <Compile Include="Topic.cs" />
+    <Compile Include="Vector.cs" />
+    <Compile Include="VersionXMLFile.cs" />
+    <Compile Include="VisualizationXMLFile.cs" />
+    <Compile Include="ZipArchiveEntryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="XMLNodes\BCFBimSnippet.cs" />
+    <Compile Include="XMLNodes\BCFBitmap.cs" />
+    <Compile Include="XMLNodes\BCFClippingPlane.cs" />
+    <Compile Include="XMLNodes\BCFComment.cs" />
+    <Compile Include="XMLNodes\BCFComponent.cs" />
+    <Compile Include="XMLNodes\BCFDocumentReference.cs" />
+    <Compile Include="XMLNodes\BCFFile.cs" />
+    <Compile Include="XMLNodes\BCFHeader.cs" />
+    <Compile Include="XMLNodes\BCFLine.cs" />
+    <Compile Include="XMLNodes\BCFOrthogonalCamera.cs" />
+    <Compile Include="XMLNodes\BCFPerspectiveCamera.cs" />
+    <Compile Include="XMLNodes\BCFProject.cs" />
+    <Compile Include="XMLNodes\BCFRelatedTopic.cs" />
+    <Compile Include="XMLNodes\BCFTopic.cs" />
+    <Compile Include="XMLNodes\BCFViewpoint.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
