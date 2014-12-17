@@ -13,7 +13,6 @@ namespace Xbim.BCF.Tests
     [TestClass]
     public class BCFTests
     {
-        private static String AppPath = Directory.GetParent(typeof(BCFTests).Assembly.ManifestModule.FullyQualifiedName).FullName;
         private BCFTestsXMLHelper xmlSchemaValidator;
 
         [TestInitialize]
@@ -25,8 +24,7 @@ namespace Xbim.BCF.Tests
         [TestMethod]
         public void DeserializeMarkupXML()
         {
-            string file = Path.Combine(AppPath, "XML\\markup.xml");
-            MarkupXMLFile xmlObj = new MarkupXMLFile(XDocument.Load(file));
+            MarkupXMLFile xmlObj = new MarkupXMLFile(XDocument.Load("XML\\markup.xml"));
             //Comments
             Assert.IsTrue(xmlObj.Comments.Count > 0);
             Assert.IsNotNull(xmlObj.Comments[0].Guid);
@@ -70,8 +68,7 @@ namespace Xbim.BCF.Tests
         [TestMethod]
         public void DeserializeProjectXML()
         {
-            string file = Path.Combine(AppPath, "XML\\project.xml");
-            ProjectXMLFile xmlObj = new ProjectXMLFile(XDocument.Load(file));
+            ProjectXMLFile xmlObj = new ProjectXMLFile(XDocument.Load("XML\\project.xml"));
 
             Assert.IsNotNull(xmlObj.ExtensionSchema);
             Assert.IsNotNull(xmlObj.Project);
@@ -82,8 +79,7 @@ namespace Xbim.BCF.Tests
         [TestMethod]
         public void DeserializeVersionXML()
         {
-            string file = Path.Combine(AppPath, "XML\\version.xml");
-            VersionXMLFile xmlObj = new VersionXMLFile(XDocument.Load(file));
+            VersionXMLFile xmlObj = new VersionXMLFile(XDocument.Load("XML\\version.xml"));
 
             Assert.IsNotNull(xmlObj.VersionId);
             Assert.IsNotNull(xmlObj.DetailedVersion);
@@ -92,8 +88,7 @@ namespace Xbim.BCF.Tests
         [TestMethod]
         public void DeserializeVisualizationXML()
         {
-            string file = Path.Combine(AppPath, "XML\\visinfo.xml");
-            VisualizationXMLFile xmlObj = new VisualizationXMLFile(XDocument.Load(file));
+            VisualizationXMLFile xmlObj = new VisualizationXMLFile(XDocument.Load("XML\\visinfo.xml"));
 
             //Bitmaps
             Assert.IsTrue(xmlObj.Bitmaps.Count > 0);
