@@ -78,9 +78,8 @@ namespace Xbim.BCF.Tests
             return new StringReader(sw.ToString());
         }
 
-        public static XmlSchema GetSchema(String name)
+        public static XmlSchema GetSchema(String file)
         {
-            string file = Directory.GetCurrentDirectory() + "/XSD/" + name;
             XmlTextReader reader = new XmlTextReader(file);
             return XmlSchema.Read(reader, ValidationCallback);
         }

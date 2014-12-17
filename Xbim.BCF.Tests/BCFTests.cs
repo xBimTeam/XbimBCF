@@ -22,9 +22,10 @@ namespace Xbim.BCF.Tests
         }
 
         [TestMethod]
+        [DeploymentItem("XML\\markup.xml")]
         public void DeserializeMarkupXML()
         {
-            MarkupXMLFile xmlObj = new MarkupXMLFile(XDocument.Load("XML\\markup.xml"));
+            MarkupXMLFile xmlObj = new MarkupXMLFile(XDocument.Load("markup.xml"));
             //Comments
             Assert.IsTrue(xmlObj.Comments.Count > 0);
             Assert.IsNotNull(xmlObj.Comments[0].Guid);
@@ -66,9 +67,10 @@ namespace Xbim.BCF.Tests
         }
 
         [TestMethod]
+        [DeploymentItem("XML\\project.xml")]
         public void DeserializeProjectXML()
         {
-            ProjectXMLFile xmlObj = new ProjectXMLFile(XDocument.Load("XML\\project.xml"));
+            ProjectXMLFile xmlObj = new ProjectXMLFile(XDocument.Load("project.xml"));
 
             Assert.IsNotNull(xmlObj.ExtensionSchema);
             Assert.IsNotNull(xmlObj.Project);
@@ -77,18 +79,20 @@ namespace Xbim.BCF.Tests
         }
 
         [TestMethod]
+        [DeploymentItem("XML\\version.xml")]
         public void DeserializeVersionXML()
         {
-            VersionXMLFile xmlObj = new VersionXMLFile(XDocument.Load("XML\\version.xml"));
+            VersionXMLFile xmlObj = new VersionXMLFile(XDocument.Load("version.xml"));
 
             Assert.IsNotNull(xmlObj.VersionId);
             Assert.IsNotNull(xmlObj.DetailedVersion);
         }
 
         [TestMethod]
+        [DeploymentItem("XML\\visinfo.xml")]
         public void DeserializeVisualizationXML()
         {
-            VisualizationXMLFile xmlObj = new VisualizationXMLFile(XDocument.Load("XML\\visinfo.xml"));
+            VisualizationXMLFile xmlObj = new VisualizationXMLFile(XDocument.Load("visinfo.xml"));
 
             //Bitmaps
             Assert.IsTrue(xmlObj.Bitmaps.Count > 0);
@@ -129,6 +133,7 @@ namespace Xbim.BCF.Tests
         }
 
         [TestMethod]
+        [DeploymentItem("XSD\\markup.xsd")]
         public void SchemaValidateMarkupXML()
         {
             XmlSchema markupSchema = BCFTestsXMLHelper.GetSchema("markup.xsd");
@@ -150,6 +155,7 @@ namespace Xbim.BCF.Tests
         }
 
         [TestMethod]
+        [DeploymentItem("XSD\\project.xsd")]
         public void SchemaValidateProjectXML()
         {
             XmlSchema projectSchema = BCFTestsXMLHelper.GetSchema("project.xsd");
@@ -172,6 +178,7 @@ namespace Xbim.BCF.Tests
         }
 
         [TestMethod]
+        [DeploymentItem("XSD\\version.xsd")]
         public void SchemaValidateVersionXML()
         {
             XmlSchema versionSchema = BCFTestsXMLHelper.GetSchema("version.xsd");
@@ -194,6 +201,7 @@ namespace Xbim.BCF.Tests
         }
 
         [TestMethod]
+        [DeploymentItem("XSD\\visinfo.xsd")]
         public void SchemaValidateVisualizationXML()
         {
             XmlSchema visualizationSchema = BCFTestsXMLHelper.GetSchema("visinfo.xsd");
