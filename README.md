@@ -1,7 +1,8 @@
-Please note that this repository is a git mirror of the original [Codeplex project](https://xbim.codeplex.com/). Please use the Codeplex site for communications.
+#Usage:
+var bcf = Xbim.BCF.BCF.Deserialize(Stream BCFZipData);
 
-Current Build Status (Master)
-[![Build status](https://ci.appveyor.com/api/projects/status/8avnatacab8wih2m/branch/master)](https://ci.appveyor.com/project/XbimCI/xbim-toolkit/branch/master)
+In order to create a BCF, you will need to instantiate various objects to form the BCF object, please look in Xbim.BCF.Tests.BCFTestsXMLHelperto see examples of each object (which will vary depending on your usage). Once created, call BCF.Serialize() to get a stream of your BCF file.
+
 
 # XBIM - the eXtensible Building Information Modelling (BIM) Toolkit
 
