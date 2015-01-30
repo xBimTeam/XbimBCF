@@ -8,7 +8,7 @@ using System.Xml.Serialization;
 
 namespace Xbim.BCF
 {
-    class BCF
+    public class BCF
     {
         /// <summary>
         /// .bcfp File Representation
