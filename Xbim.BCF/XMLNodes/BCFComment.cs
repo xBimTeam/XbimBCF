@@ -184,8 +184,8 @@ namespace Xbim.BCF.XMLNodes
             Date = date;
             Author = author;
             Comment = comment;
-            Guid = topicId;
-            Topic = new AttrIDNode(id);
+            Guid = id;
+            Topic = new AttrIDNode(topicId);
         }
 
         public BCFComment(XElement node)
