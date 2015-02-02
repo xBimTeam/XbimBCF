@@ -16,7 +16,7 @@ namespace Xbim.BCF
         /// <summary>
         /// .bcfv File Projection
         /// </summary>
-        public VisualizationXMLFile Vizualization { get; set; }
+        public VisualizationXMLFile Visualization { get; set; }
         /// <summary>
         /// Collection of key/value pairs representing the (Key)name and (Value)Base64 String representations of a .png file associated with the topic
         /// </summary>

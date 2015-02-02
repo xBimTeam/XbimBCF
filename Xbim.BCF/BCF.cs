@@ -73,7 +73,7 @@ namespace Xbim.BCF
                         currentGuid = entry.ExtractGuidFolderName();
                         currentTopic = new Topic();
                     }
-                    currentTopic.Vizualization = new VisualizationXMLFile(XDocument.Load(entry.Open()));
+                    currentTopic.Visualization = new VisualizationXMLFile(XDocument.Load(entry.Open()));
                 }
                 else if (entry.FullName.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
                 {
@@ -159,7 +159,7 @@ namespace Xbim.BCF
                     {
                         using (var bcfvWriter = new StreamWriter(bcfvStream))
                         {
-                            bcfvSerializer.Serialize(bcfvWriter, t.Vizualization);
+                            bcfvSerializer.Serialize(bcfvWriter, t.Visualization);
                             bcfvWriter.Close();
                         }
                     }
