@@ -1,3 +1,7 @@
+Build Status (master branch): [ ![Build Status](http://xbimbuilds.cloudapp.net/app/rest/builds/buildType:(id:Xbim_XbimBcf_XbimBcf),branch:(name:master)/statusIcon "Build Status") ](http://xbimbuilds.cloudapp.net/project.html?projectId=Xbim_XbimBcf&tab=projectOverview "Build Status")
+
+Build Status (develop branch): [ ![Build Status](http://xbimbuilds.cloudapp.net/app/rest/builds/buildType:(id:Xbim_XbimBcf_XbimBcf),branch:(name:develop)/statusIcon "Build Status") ](http://xbimbuilds.cloudapp.net/project.html?projectId=Xbim_XbimBcf&tab=projectOverview "Build Status")
+
 #Usage:
 var bcf = Xbim.BCF.BCF.Deserialize(Stream BCFZipData);
 
