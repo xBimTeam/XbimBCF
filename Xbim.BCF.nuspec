@@ -22,8 +22,8 @@ IOS and Android versions are under development.</description>
         <tags>BIM, IFC, IfcXml, IfcZip, COBie, .Net, C#, BuildingSmart, BCF, Bim Collaboration Format</tags>
     </metadata>
     <files>
-        <file src="Output\Xbim.BCF.dll" target="lib\net45\Xbim.BCF.dll" />
-      <file src="Output\Xbim.BCF.xml" target="lib\net45\Xbim.BCF.xml" />
+        <file src="Output\Release\Xbim.BCF.dll" target="lib\net45\Xbim.BCF.dll" />
+      <file src="Output\Release\Xbim.BCF.xml" target="lib\net45\Xbim.BCF.xml" />
     </files>
 	
 </package>
