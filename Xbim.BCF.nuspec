@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Xbim.Bcf</id>
-        <version>3.1.8</version>
+        <version>3.1.9</version>
         <title>xBIM BCF</title>
         <authors>xBIM team</authors>
         <owners>Steve Lockley</owners>
@@ -23,7 +23,7 @@ IOS and Android versions are under development.</description>
     </metadata>
     <files>
         <file src="Output\Xbim.BCF.dll" target="lib\net45\Xbim.BCF.dll" />
-      <file src="Output\Xbim.BCF.pdb" target="lib\net45\Xbim.BCF.pdb" />
+      <file src="Output\Xbim.BCF.xml" target="lib\net45\Xbim.BCF.xml" />
     </files>
 	
 </package>
