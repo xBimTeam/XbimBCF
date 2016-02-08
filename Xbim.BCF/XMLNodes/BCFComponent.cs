@@ -19,13 +19,17 @@ namespace Xbim.BCF.XMLNodes
             get { return _color; }
             set
             {
-                if (!String.IsNullOrEmpty(value) && IsHex(value))
+                if (!String.IsNullOrEmpty(value))
                 {
+                    if (!IsHex(value))
+                    {
+                        throw new ArgumentException(this.GetType().Name + " - Color - must be a valid hex sequence");
+                    }
                     _color = value;
                 }
                 else
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Color - must be a valid hex sequence");
+                    _color = "FFFFFF00";
                 }
             }
         }
