@@ -166,12 +166,14 @@ namespace Xbim.BCF
 
                     foreach (KeyValuePair<String, byte[]> img in t.Snapshots)
                     {
-                        var png = archive.CreateEntry(img.Key);
+                        string snapshotName = string.Format("{0}/{1}", t.Markup.Topic.Guid, img.Key);
+                        var png = archive.CreateEntry(snapshotName);
                         using (var pngStream = png.Open())
                         {
                             using (var pngWriter = new BinaryWriter(pngStream))
                             {
                                 pngWriter.Write(img.Value);
+                                pngWriter.Close();
                             }
                         }
                     }
