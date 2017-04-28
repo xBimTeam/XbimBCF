@@ -8,14 +8,13 @@
 [assembly: AssemblyConfiguration("Release")]
 #endif
 
-[assembly: AssemblyCompany("Lockley Consulting")]
-[assembly: AssemblyProduct("Xbim Library")]
-[assembly: AssemblyCopyright("Copyright © Lockley Consulting 2007-2012")]
-[assembly: AssemblyTrademark("Xbim")]
-[assembly: AssemblyCulture("")]
- 
-// AssemblyVersion is the CLR version. Change this only when making breaking changes
-[assembly: AssemblyVersion("3.0.*")]
-// AssemblyFileVersion should ideally be changed with each build, and should help identify the origin of a build
-[assembly: AssemblyFileVersion("3.0.0.0")]
+[assembly: AssemblyCompany("Xbim Team")]
 
+[assembly: AssemblyCopyright("Copyright © Xbim Team 2007-2017")]
+[assembly: AssemblyTrademark("Xbim Team")]
+[assembly: AssemblyCulture("")]
+
+// AssemblyVersion is the CLR version. Change this only when making breaking changes
+// Whenever breaking changes happen update this.
+[assembly: AssemblyVersion("4.0")]
+[assembly: AssemblyInformationalVersion("4.0.develop")]
