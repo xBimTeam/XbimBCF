@@ -21,7 +21,7 @@ namespace Xbim.BCF.XMLNodes
         public bool IsExternal { get; set; }
         public bool ShouldSerializeIsExternal()
         {
-            return IsExternal = true;
+            return IsExternal;
         }
         /// <summary>
         /// URI to document. IsExternal=false "..\exampleDoc.docx" (within bcfzip) IsExternal=true "https://.../ exampleDoc.docx"
