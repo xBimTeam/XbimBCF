@@ -44,6 +44,15 @@ namespace Xbim.BCF.XMLNodes
         {
             return !string.IsNullOrEmpty(Snapshot);
         }
+        /// <summary>
+        /// Index
+        /// </summary>
+        [XmlElement(Order = 3)]
+        public int? Index { get; set; }
+        public bool ShouldSerializeIndex()
+        {
+            return Index != null;
+        }
 
         private BCFViewpoint()
         { }
@@ -58,6 +67,7 @@ namespace Xbim.BCF.XMLNodes
             ID = (System.Guid?)node.Attribute("Guid") ?? System.Guid.Empty;
             Viewpoint = (String)node.Element("Viewpoint") ?? "";
             Snapshot = (String)node.Element("Snapshot") ?? "";
+            Index = (int?)node.Element("Index");
         }
     }
 }

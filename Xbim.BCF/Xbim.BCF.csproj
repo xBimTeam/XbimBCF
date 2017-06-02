@@ -53,7 +53,7 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
-	<Compile Include="..\SharedFileVersionInfo.cs">
+    <Compile Include="..\SharedFileVersionInfo.cs">
       <Link>Properties\SharedFileVersionInfo.cs</Link>
     </Compile>
     <Compile Include="AttrIDNode.cs" />
@@ -64,6 +64,11 @@
     <Compile Include="Vector.cs" />
     <Compile Include="VersionXMLFile.cs" />
     <Compile Include="VisualizationXMLFile.cs" />
+    <Compile Include="XMLNodes\BCFComponentColoringColor.cs" />
+    <Compile Include="XMLNodes\BCFComponents.cs" />
+    <Compile Include="XMLNodes\BCFComponentSelection.cs" />
+    <Compile Include="XMLNodes\BCFComponentVisibility.cs" />
+    <Compile Include="XMLNodes\BCFViewSetupHints.cs" />
     <Compile Include="ZipArchiveEntryExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XMLNodes\BCFBimSnippet.cs" />
