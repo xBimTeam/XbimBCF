@@ -29,21 +29,18 @@ namespace Xbim.BCF.Tests
             //Comments
             Assert.IsTrue(xmlObj.Comments.Count > 0);
             Assert.IsNotNull(xmlObj.Comments[0].Guid);
-            Assert.IsNotNull(xmlObj.Comments[0].Topic.ID);
-            Assert.IsNotNull(xmlObj.Comments[0].Status);
             Assert.IsNotNull(xmlObj.Comments[0].Date);
             Assert.IsNotNull(xmlObj.Comments[0].Author);
             Assert.IsNotNull(xmlObj.Comments[0].Comment);
             Assert.IsNotNull(xmlObj.Comments[0].ModifiedAuthor);
             Assert.IsNotNull(xmlObj.Comments[0].ModifiedDate);
-            Assert.IsNotNull(xmlObj.Comments[0].ReplyToComment.ID);
-            Assert.IsNotNull(xmlObj.Comments[0].VerbalStatus);
             Assert.IsNotNull(xmlObj.Comments[0].Viewpoint.ID);
             //Viewpoint
             Assert.IsTrue(xmlObj.Viewpoints.Count > 0);
             Assert.IsNotNull(xmlObj.Viewpoints[0].Snapshot);
             Assert.IsNotNull(xmlObj.Viewpoints[0].Viewpoint);
             Assert.IsNotNull(xmlObj.Viewpoints[0].ID);
+            Assert.IsNotNull(xmlObj.Viewpoints[0].Index);
             //Header
             Assert.IsNotNull(xmlObj.Header);
             //Files
@@ -58,7 +55,11 @@ namespace Xbim.BCF.Tests
             Assert.IsNotNull(xmlObj.Topic);
             Assert.IsNotNull(xmlObj.Topic.Guid);
             Assert.IsNotNull(xmlObj.Topic.Title);
+            Assert.IsNotNull(xmlObj.Topic.TopicType);
+            Assert.IsNotNull(xmlObj.Topic.TopicStatus);
+            Assert.IsNotNull(xmlObj.Topic.DueDate);
             Assert.IsNotNull(xmlObj.Topic.AssignedTo);
+            Assert.IsNotNull(xmlObj.Topic.Stage);
             Assert.IsNotNull(xmlObj.Topic.BimSnippet);
             Assert.IsNotNull(xmlObj.Topic.BimSnippet.Reference);
             Assert.IsNotNull(xmlObj.Topic.BimSnippet.SnippetType);
@@ -107,13 +108,14 @@ namespace Xbim.BCF.Tests
             Assert.IsNotNull(xmlObj.ClippingPlanes[0].Direction);
             Assert.IsNotNull(xmlObj.ClippingPlanes[0].Location);
             //Components
-            Assert.IsTrue(xmlObj.Components.Count > 0);
-            Assert.IsNotNull(xmlObj.Components[0].AuthoringToolId);
-            Assert.IsNotNull(xmlObj.Components[0].Color);
-            Assert.IsNotNull(xmlObj.Components[0].IfcGuid);
-            Assert.IsNotNull(xmlObj.Components[0].OriginatingSystem);
-            Assert.IsNotNull(xmlObj.Components[0].Selected);
-            Assert.IsNotNull(xmlObj.Components[0].Visible);
+            Assert.IsTrue(xmlObj.Components.Selection.Components.Count > 0);
+            Assert.IsNotNull(xmlObj.Components.Selection.Components[0].AuthoringToolId);
+            Assert.IsNotNull(xmlObj.Components.Colorings[0].Color);
+            Assert.IsNotNull(xmlObj.Components.Selection.Components[0].IfcGuid);
+            Assert.IsNotNull(xmlObj.Components.Selection.Components[0].OriginatingSystem);
+            Assert.IsNotNull(xmlObj.Components.Selection.Components[0]);
+            Assert.IsNotNull(xmlObj.Components.Visibility.Exceptions[0]);
+            Assert.IsNotNull(xmlObj.Components.ViewSetupHints);     
             //Lines
             Assert.IsTrue(xmlObj.Lines.Count > 0);
             Assert.IsNotNull(xmlObj.Lines[0].StartPoint);

@@ -1,18 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<VisualizationInfo>
+<VisualizationInfo Guid="09a3fc1e-a073-447b-ad40-68dce41ca48b">
   <Components>
-    <Component IfcGuid="IfcGuid______________1" Selected="true" Visible="true" Color="0FB7">
-      <OriginatingSystem>OriginatingSystem1</OriginatingSystem>
-      <AuthoringToolId>AuthoringToolId1</AuthoringToolId>
-    </Component>
-    <Component IfcGuid="IfcGuid______________2" Selected="false" Visible="true" Color="80000001">
-      <OriginatingSystem>OriginatingSystem2</OriginatingSystem>
-      <AuthoringToolId>AuthoringToolId2</AuthoringToolId>
-    </Component>
-    <Component IfcGuid="IfcGuid______________3" Selected="true" Visible="false" Color="7FFFFFFF">
-      <OriginatingSystem>OriginatingSystem3</OriginatingSystem>
-      <AuthoringToolId>AuthoringToolId3</AuthoringToolId>
-    </Component>
+    <ViewSetupHints SpacesVisible="true" SpaceBoundariesVisible="true" OpeningsVisible="true" />
+    <Selection>
+      <Component IfcGuid="IfcGuid______________1">
+        <OriginatingSystem>OriginatingSystem1</OriginatingSystem>
+        <AuthoringToolId>AuthoringToolId1</AuthoringToolId>
+      </Component>
+      <Component IfcGuid="IfcGuid______________2">
+        <OriginatingSystem>OriginatingSystem2</OriginatingSystem>
+        <AuthoringToolId>AuthoringToolId2</AuthoringToolId>
+      </Component>
+      <Component IfcGuid="IfcGuid______________3">
+        <OriginatingSystem>OriginatingSystem3</OriginatingSystem>
+        <AuthoringToolId>AuthoringToolId3</AuthoringToolId>
+      </Component>
+    </Selection>
+    <Visibility DefaultVisibility="true">
+      <Exceptions>
+        <Component IfcGuid="IfcGuid______________1">
+          <OriginatingSystem>OriginatingSystem1</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId1</AuthoringToolId>
+        </Component>
+        <Component IfcGuid="IfcGuid______________2">
+          <OriginatingSystem>OriginatingSystem2</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId2</AuthoringToolId>
+        </Component>
+        <Component IfcGuid="IfcGuid______________3">
+          <OriginatingSystem>OriginatingSystem3</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId3</AuthoringToolId>
+        </Component>
+      </Exceptions>
+    </Visibility>
+    <Coloring>
+      <Color Color="0FB7">
+        <Component IfcGuid="IfcGuid______________1">
+          <OriginatingSystem>OriginatingSystem1</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId1</AuthoringToolId>
+        </Component>
+        <Component IfcGuid="IfcGuid______________2">
+          <OriginatingSystem>OriginatingSystem2</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId2</AuthoringToolId>
+        </Component>
+        <Component IfcGuid="IfcGuid______________3">
+          <OriginatingSystem>OriginatingSystem3</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId3</AuthoringToolId>
+        </Component>
+      </Color>
+      <Color Color="80000001">
+        <Component IfcGuid="IfcGuid______________4">
+          <OriginatingSystem>OriginatingSystem4</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId4</AuthoringToolId>
+        </Component>
+        <Component IfcGuid="IfcGuid______________5">
+          <OriginatingSystem>OriginatingSystem5</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId5</AuthoringToolId>
+        </Component>
+        <Component IfcGuid="IfcGuid______________6">
+          <OriginatingSystem>OriginatingSystem6</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId6</AuthoringToolId>
+        </Component>
+      </Color>
+      <Color Color="7FFFFFFF">
+        <Component IfcGuid="IfcGuid______________7">
+          <OriginatingSystem>OriginatingSystem7</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId7</AuthoringToolId>
+        </Component>
+        <Component IfcGuid="IfcGuid______________8">
+          <OriginatingSystem>OriginatingSystem8</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId8</AuthoringToolId>
+        </Component>
+        <Component IfcGuid="IfcGuid______________9">
+          <OriginatingSystem>OriginatingSystem9</OriginatingSystem>
+          <AuthoringToolId>AuthoringToolId9</AuthoringToolId>
+        </Component>
+      </Color>
+    </Coloring>
   </Components>
   <OrthogonalCamera>
     <CameraViewPoint>
@@ -126,7 +189,7 @@
       </Direction>
     </ClippingPlane>
   </ClippingPlanes>
-  <Bitmaps>
+  <Bitmap>
     <Bitmap>PNG</Bitmap>
     <Reference>Reference1</Reference>
     <Location>
@@ -145,8 +208,8 @@
       <Z>1</Z>
     </Up>
     <Height>1</Height>
-  </Bitmaps>
-  <Bitmaps>
+  </Bitmap>
+  <Bitmap>
     <Bitmap>JPG</Bitmap>
     <Reference>Reference2</Reference>
     <Location>
@@ -165,8 +228,8 @@
       <Z>-1.7976931348623157E+308</Z>
     </Up>
     <Height>-1.7976931348623157E+308</Height>
-  </Bitmaps>
-  <Bitmaps>
+  </Bitmap>
+  <Bitmap>
     <Bitmap>PNG</Bitmap>
     <Reference>Reference3</Reference>
     <Location>
@@ -185,5 +248,5 @@
       <Z>1.7976931348623157E+308</Z>
     </Up>
     <Height>1.7976931348623157E+308</Height>
-  </Bitmaps>
+  </Bitmap>
 </VisualizationInfo>

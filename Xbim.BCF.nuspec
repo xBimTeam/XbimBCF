@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/10/nuspec.xsd">
     <metadata>
         <id>Xbim.Bcf</id>
-        <version>4.0.0</version>
+        <version>4.1.1</version>
         <title>xBIM BCF</title>
         <authors>xBIM team</authors>
         <owners>Steve Lockley</owners>
@@ -22,7 +22,7 @@ IOS and Android versions are under development.</description>
         <tags>BIM, IFC, IfcXml, IfcZip, COBie, .Net, C#, BuildingSmart, BCF, Bim Collaboration Format</tags>
     </metadata>
     <files>
-        <file src="Output\Release\Xbim.BCF.dll" target="lib\net45\Xbim.BCF.dll" />
+      <file src="Output\Release\Xbim.BCF.dll" target="lib\net45\Xbim.BCF.dll" />
       <file src="Output\Release\Xbim.BCF.xml" target="lib\net45\Xbim.BCF.xml" />
     </files>
 	

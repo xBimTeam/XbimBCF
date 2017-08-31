@@ -99,12 +99,10 @@ namespace Xbim.BCF.Tests
         {
             MarkupXMLFile xmlObj = new MarkupXMLFile();
 
-            BCFComment comment = new BCFComment(Guid.NewGuid(), Guid.NewGuid(), "testStatus", DateTime.Now, "testAuthor", "testComment");
+            BCFComment comment = new BCFComment(Guid.NewGuid(), DateTime.Now, "testAuthor", "testComment");
             comment.ModifiedAuthor = "testModifiedAuthor";
             comment.ModifiedDate = DateTime.Now;
-            comment.ReplyToComment = new AttrIDNode(Guid.NewGuid());
             comment.Viewpoint = new AttrIDNode(Guid.NewGuid());
-            comment.VerbalStatus = "testVerbalStatus";
             xmlObj.Comments.Add(comment);
 
             BCFViewpoint viewp = new BCFViewpoint(Guid.NewGuid());
@@ -123,7 +121,7 @@ namespace Xbim.BCF.Tests
             f.Reference = "testReference";
             xmlObj.Header.Files.Add(f);
 
-            xmlObj.Topic = new BCFTopic(Guid.NewGuid(), "testTitle");
+            xmlObj.Topic = new BCFTopic(Guid.NewGuid(), "testTitle", DateTime.Now, "testAuthor");
             xmlObj.Topic.AssignedTo = "testAssignedTo";
             xmlObj.Topic.BimSnippet = new BCFBimSnippet("testSnippetType", "testReference");
             xmlObj.Topic.BimSnippet.isExternal = true;
@@ -156,7 +154,7 @@ namespace Xbim.BCF.Tests
 
         public static VisualizationXMLFile BuildVisualizationObject()
         {
-            VisualizationXMLFile xmlObj = new VisualizationXMLFile();
+            VisualizationXMLFile xmlObj = new VisualizationXMLFile(Guid.NewGuid());
             Vector testVector = new Vector(1.7976931348623157E+308, 1.7976931348623157E+308, 1.7976931348623157E+308);
 
             BCFBitmap bMap = new BCFBitmap(testVector, testVector, testVector, 1.7976931348623157E+308, "PNG", "testReference");
@@ -169,13 +167,14 @@ namespace Xbim.BCF.Tests
 
             BCFComponent c = new BCFComponent();
             c.AuthoringToolId = "testAuthoringToolID";
-            c.Color = "7FFFFFFF";
             c.IfcGuid = "IfcGuid______________1";
             c.OriginatingSystem = "testOriginatingSystem";
-            c.Selected = true;
-            c.Visible = true;
-            xmlObj.Components.Add(c);
-            xmlObj.Components.Add(c);
+            if (xmlObj.Components.Selection == null)
+                xmlObj.Components.Selection = new BCFComponentSelection();
+            xmlObj.Components.Selection.Components.Add(c);
+            xmlObj.Components.Colorings.Add(new BCFComponentColoringColor("7FFFFFFF"));
+            xmlObj.Components.Colorings[0].Components.Add(c);
+            xmlObj.Components.Visibility.Exceptions.Add(c);
 
             BCFLine l = new BCFLine(testVector, testVector);
             xmlObj.Lines.Add(l);

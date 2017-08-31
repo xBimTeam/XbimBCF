@@ -60,11 +60,11 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// Reference to the topic in, for example, a work request management system
         /// </summary>
-        [XmlElement(Order = 2)]
-        public String ReferenceLink { get; set; }
+        [XmlElement(ElementName = "ReferenceLink", Order = 2)]
+        public List<String> ReferenceLinks;
         public bool ShouldSerializeReferenceLink()
         {
-            return !string.IsNullOrEmpty(ReferenceLink);
+            return ReferenceLinks != null && ReferenceLinks.Count > 0;
         }
         /// <summary>
         /// Description of the topic
@@ -93,25 +93,46 @@ namespace Xbim.BCF.XMLNodes
         {
             return Index != null;
         }
+        private DateTime? _creationDate;
         /// <summary>
         /// Date when the topic was created
         /// </summary>
         [XmlElement(Order = 6)]
-        public DateTime? CreationDate { get; set; }
-        public bool ShouldSerializeCreationDate()
+        public DateTime? CreationDate
         {
-            return CreationDate != null;
+            get { return _creationDate; }
+            set
+            {
+                if (ReferenceEquals(value, null))
+                {
+                    throw new ArgumentException(this.GetType().Name + " - CreationDate is mandatory");
+                }
+                else
+                {
+                    _creationDate = value;
+                }
+            }
         }
+        private String _creationAuthor;
         /// <summary>
         /// User who created the topic
         /// </summary>
         [XmlElement(Order = 7)]
-        public String CreationAuthor { get; set; }
-        public bool ShouldSerializeCreationAuthor()
+        public String CreationAuthor
         {
-            return !string.IsNullOrEmpty(CreationAuthor);
+            get { return _creationAuthor; }
+            set
+            {
+                if (String.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException(this.GetType().Name + " - CreationAuthor is mandatory");
+                }
+                else
+                {
+                    _creationAuthor = value;
+                }
+            }
         }
-        /// <summary>
         /// Date when the topic was last modified
         /// </summary>
         [XmlElement(Order = 8)]
@@ -130,18 +151,36 @@ namespace Xbim.BCF.XMLNodes
             return !string.IsNullOrEmpty(ModifiedAuthor);
         }
         /// <summary>
-        /// The user to whom this topic is assigned to
+        /// Due date
         /// </summary>
         [XmlElement(Order = 10)]
+        public DateTime? DueDate { get; set; }
+        public bool ShouldSerializeDueDate()
+        {
+            return DueDate != null;
+        }
+        /// <summary>
+        /// The user to whom this topic is assigned to
+        /// </summary>
+        [XmlElement(Order = 11)]
         public String AssignedTo { get; set; }
         public bool ShouldSerializeAssignedTo()
         {
             return !string.IsNullOrEmpty(AssignedTo);
         }
         /// <summary>
+        /// Stage
+        /// </summary>
+        [XmlElement(Order = 12)]
+        public String Stage { get; set; }
+        public bool ShouldSerializeStage()
+        {
+            return !string.IsNullOrEmpty(Stage);
+        }
+        /// <summary>
         /// The status of the topic (the options can be specified in the extension schema)
         /// </summary>
-        [XmlElement(Order = 11)]
+        [XmlAttribute]
         public String TopicStatus { get; set; }
         public bool ShouldSerializeTopicStatus()
         {
@@ -150,7 +189,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// BimSnippet is an additional file containing information related to one or multiple topics. For example, it can be an IFC file containing provisions for voids.
         /// </summary>
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 13)]
         public BCFBimSnippet BimSnippet { get; set; }
         public bool ShouldSerializeBimSnippet()
         {
@@ -159,7 +198,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// DocumentReference provides a means to associate additional payloads or links with topics. The references may point to a file within the .bcfzip or to an external location.
         /// </summary>
-        [XmlElement(ElementName = "DocumentReferences", Order = 13)]
+        [XmlElement(ElementName = "DocumentReference", Order = 14)]
         public List<BCFDocumentReference> DocumentReferences;
         public bool ShouldSerializeDocumentReferences()
         {
@@ -168,7 +207,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// Relation between topics (Clash -> PfV -> Opening)
         /// </summary>
-        [XmlElement(ElementName = "RelatedTopics", Order = 14)]
+        [XmlElement(ElementName = "RelatedTopic", Order = 15)]
         public List<BCFRelatedTopic> RelatedTopics;
         public bool ShouldSerializeRelatedTopics()
         {
@@ -179,10 +218,13 @@ namespace Xbim.BCF.XMLNodes
         private BCFTopic()
         { }
 
-        public BCFTopic(Guid topicID, String title)
+        public BCFTopic(Guid topicID, String title, DateTime date, String author)
         {
             Guid = topicID;
             Title = title;
+            CreationDate = date;
+            CreationAuthor = author;
+            ReferenceLinks = new List<String>();
             DocumentReferences = new List<BCFDocumentReference>();
             RelatedTopics = new List<BCFRelatedTopic>();
         }
@@ -191,11 +233,11 @@ namespace Xbim.BCF.XMLNodes
         {
             DocumentReferences = new List<BCFDocumentReference>();
             RelatedTopics = new List<BCFRelatedTopic>();
+            ReferenceLinks = new List<string>();
 
             this.Guid = Guid.Parse((String)node.Attribute("Guid") ?? "");
             Title = (String)node.Element("Title") ?? "";
             TopicType = (String)node.Attribute("TopicType") ?? "";
-            ReferenceLink = (String)node.Element("ReferenceLink") ?? "";
             Description = (String)node.Element("Description") ?? "";
             Priority = (String)node.Element("Priority") ?? "";
             Index = (int?)node.Element("Index") ?? null;
@@ -203,8 +245,19 @@ namespace Xbim.BCF.XMLNodes
             CreationAuthor = (String)node.Element("CreationAuthor") ?? "";
             ModifiedDate = (DateTime?)node.Element("ModifiedDate") ?? null;
             ModifiedAuthor = (String)node.Element("ModifiedAuthor") ?? "";
+            DueDate = (DateTime?)node.Element("DueDate") ?? null;
             AssignedTo = (String)node.Element("AssignedTo") ?? "";
-            TopicStatus = (String)node.Element("TopicStatus") ?? "";
+            Stage = (String)node.Element("Stage") ?? "";
+            TopicStatus = (String)node.Attribute("TopicStatus") ?? "";
+
+            var refLinks = node.Elements("ReferenceLink").FirstOrDefault();
+            if (refLinks != null)
+            {
+                foreach (var refLink in node.Elements("ReferenceLink"))
+                {
+                    ReferenceLinks.Add(refLink.Value);
+                }
+            }
 
             var bimSnippet = node.Elements("BimSnippet").FirstOrDefault();
             if (bimSnippet != null)
@@ -212,19 +265,19 @@ namespace Xbim.BCF.XMLNodes
                 BimSnippet = new BCFBimSnippet(bimSnippet);
             }
 
-            var docRefs = node.Elements("DocumentReferences").FirstOrDefault();
+            var docRefs = node.Elements("DocumentReference").FirstOrDefault();
             if (docRefs != null)
             {
-                foreach (var dref in node.Elements("DocumentReferences"))
+                foreach (var dref in node.Elements("DocumentReference"))
                 {
                     DocumentReferences.Add(new BCFDocumentReference(dref));
                 }
             }
 
-            var relTopics = node.Elements("RelatedTopics").FirstOrDefault();
+            var relTopics = node.Elements("RelatedTopic").FirstOrDefault();
             if (relTopics != null)
             {
-                foreach (var rt in node.Elements("RelatedTopics"))
+                foreach (var rt in node.Elements("RelatedTopic"))
                 {
                     RelatedTopics.Add(new BCFRelatedTopic(rt));
                 }
