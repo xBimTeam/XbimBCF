@@ -25,10 +25,27 @@ namespace Xbim.BCF.XMLNodes
             Exceptions = new List<BCFComponent>();
         }
 
-        public BCFComponentVisibility(XElement node)
+        public BCFComponentVisibility(XElement node, string version)
         {
-            DefaultVisibility = (bool?)node.Attribute("DefaultVisibility") ?? false;
-            Exceptions = new List<BCFComponent>(node.Element("Exceptions")?.Elements("Component").Select(n => new BCFComponent(n)) ?? Enumerable.Empty<BCFComponent>());
+            if (version == "2.0")
+            {
+                var component = node.Elements("Component").FirstOrDefault();
+                if (component == null || !((bool?)component.Attribute("Visible") ?? true))
+                {
+                    DefaultVisibility = true;
+                    Exceptions = new List<BCFComponent>();
+                }
+                else
+                {
+                    DefaultVisibility = false;
+                    Exceptions = new List<BCFComponent>(node.Elements("Component").Select(n => new BCFComponent(n)));
+                }
+            }
+            else
+            {
+                DefaultVisibility = (bool?)node.Attribute("DefaultVisibility") ?? false;
+                Exceptions = new List<BCFComponent>(node.Element("Exceptions")?.Elements("Component").Select(n => new BCFComponent(n)) ?? Enumerable.Empty<BCFComponent>());
+            }
         }
     }
 }

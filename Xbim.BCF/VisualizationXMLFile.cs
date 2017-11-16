@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Linq;
@@ -54,14 +54,19 @@ namespace Xbim.BCF
             Bitmaps = new List<BCFBitmap>();
         }
 
-        public VisualizationXMLFile(XDocument xdoc)
+        public VisualizationXMLFile(XDocument xdoc, string version)
         {
             Components = new BCFComponents();
             Lines = new List<BCFLine>();
             ClippingPlanes = new List<BCFClippingPlane>();
             Bitmaps = new List<BCFBitmap>();
 
-            Guid = (System.Guid?)xdoc.Root.Attribute("Guid") ?? System.Guid.Empty;
+            string bitmapName = "Bitmap";
+            if (version == "2.0")
+                bitmapName = "Bitmaps";
+
+            if (!Guid.TryParse((String)xdoc.Root.Attribute("Guid"), out this._guid))
+                this.Guid = Guid.NewGuid();
 
             var orth = xdoc.Root.Elements("OrthogonalCamera").FirstOrDefault();
             if (orth != null)
@@ -76,7 +81,7 @@ namespace Xbim.BCF
             var components = xdoc.Root.Element("Components");
             if (components != null)
             {
-                Components = new BCFComponents(components);
+                Components = new BCFComponents(components, version);
             }
             var lines = xdoc.Root.Elements("Lines").FirstOrDefault();
             if (lines != null)
@@ -94,10 +99,10 @@ namespace Xbim.BCF
                     ClippingPlanes.Add(new BCFClippingPlane(plane));
                 }
             }
-            var bitmaps = xdoc.Root.Elements("Bitmap").FirstOrDefault();
+            var bitmaps = xdoc.Root.Elements(bitmapName).FirstOrDefault();
             if (bitmaps != null)
             {
-                foreach (var bmap in xdoc.Root.Elements("Bitmap"))
+                foreach (var bmap in xdoc.Root.Elements(bitmapName))
                 {
                     Bitmaps.Add(new BCFBitmap(bmap));
                 }

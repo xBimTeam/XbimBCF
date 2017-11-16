@@ -54,17 +54,36 @@ namespace Xbim.BCF.XMLNodes
             Colorings = new List<BCFComponentColoringColor>();
         }
 
-        public BCFComponents(XElement node)
+        public BCFComponents(XElement node, string version)
         {
             var hints = node.Element("ViewSetupHints");
             ViewSetupHints = hints != null ? new BCFViewSetupHints(hints) : null;
-            var selection = node.Element("Selection");
-            Selection = selection != null ? new BCFComponentSelection(selection) : null;
-            var visibility = node.Element("Visibility");
-            Visibility = visibility != null ? new BCFComponentVisibility(visibility) : null;
-            var coloring = node.Element("Coloring");
-            if (coloring != null)
-                Colorings = new List<BCFComponentColoringColor>(coloring.Elements("Color").Select(c => new BCFComponentColoringColor(c.Attribute("Color")?.Value)));
+            if (version == "2.0")
+            {
+                bool hasComponents = node.Elements("Component").Any();
+                Selection = new BCFComponentSelection(node, version);
+                Visibility = new BCFComponentVisibility(node, version);
+                Colorings = hasComponents ? new List<BCFComponentColoringColor>() : null;
+                var colors = new HashSet<string>();
+                foreach (var component in node.Elements("Component"))
+                {
+                    var color = (String)component.Attribute("Color") ?? "";
+                    if (!string.IsNullOrWhiteSpace(color))
+                        colors.Add(color);
+                }
+                foreach (var color in colors)
+                    Colorings.Add(new BCFComponentColoringColor(node, color));
+            }
+            else
+            {
+                var selection = node.Element("Selection");
+                Selection = selection != null ? new BCFComponentSelection(selection, version) : null;
+                var visibility = node.Element("Visibility");
+                Visibility = new BCFComponentVisibility(visibility, version);
+                var coloring = node.Element("Coloring");
+                if (coloring != null)
+                    Colorings = new List<BCFComponentColoringColor>(coloring.Elements("Color").Select(c => new BCFComponentColoringColor(c.Attribute("Color")?.Value)));
+            }
         }
     }
 }

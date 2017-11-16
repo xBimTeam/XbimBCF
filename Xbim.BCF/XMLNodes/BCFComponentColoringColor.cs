@@ -49,6 +49,12 @@ namespace Xbim.BCF.XMLNodes
             Components = new List<BCFComponent>(node.Elements("Component").Select(n => new BCFComponent(n)));
         }
 
+        public BCFComponentColoringColor(XElement node, string color)
+        {
+            Color = color;
+            Components = new List<BCFComponent>(node.Elements("Component").Where(n=>((String)n.Attribute("Color")??"").Equals(color)).Select(n => new BCFComponent(n)));
+        }
+
         private bool IsHex(IEnumerable<char> chars)
         {
             bool isHex;

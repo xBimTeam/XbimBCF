@@ -229,12 +229,20 @@ namespace Xbim.BCF.XMLNodes
             RelatedTopics = new List<BCFRelatedTopic>();
         }
 
-        public BCFTopic(XElement node)
+        public BCFTopic(XElement node, string version)
         {
             DocumentReferences = new List<BCFDocumentReference>();
             RelatedTopics = new List<BCFRelatedTopic>();
             ReferenceLinks = new List<string>();
-
+            
+            string documentReferenceName = "DocumentReference";
+            string relatedTopicName = "RelatedTopic";
+            if (version == "2.0")
+            {
+                documentReferenceName = "DocumentReferences";
+                relatedTopicName = "RelatedTopics";
+            }
+                
             this.Guid = Guid.Parse((String)node.Attribute("Guid") ?? "");
             Title = (String)node.Element("Title") ?? "";
             TopicType = (String)node.Attribute("TopicType") ?? "";
@@ -250,14 +258,19 @@ namespace Xbim.BCF.XMLNodes
             Stage = (String)node.Element("Stage") ?? "";
             TopicStatus = (String)node.Attribute("TopicStatus") ?? "";
 
-            var refLinks = node.Elements("ReferenceLink").FirstOrDefault();
-            if (refLinks != null)
+            if (version == "2.0")
+                ReferenceLinks.Add((String)node.Element("ReferenceLink") ?? "");
+            else
             {
-                foreach (var refLink in node.Elements("ReferenceLink"))
+                var refLinks = node.Elements("ReferenceLink").FirstOrDefault();
+                if (refLinks != null)
                 {
-                    ReferenceLinks.Add(refLink.Value);
+                    foreach (var refLink in node.Elements("ReferenceLink"))
+                    {
+                        ReferenceLinks.Add(refLink.Value);
+                    }
                 }
-            }
+            }   
 
             var bimSnippet = node.Elements("BimSnippet").FirstOrDefault();
             if (bimSnippet != null)
@@ -265,19 +278,19 @@ namespace Xbim.BCF.XMLNodes
                 BimSnippet = new BCFBimSnippet(bimSnippet);
             }
 
-            var docRefs = node.Elements("DocumentReference").FirstOrDefault();
+            var docRefs = node.Elements(documentReferenceName).FirstOrDefault();
             if (docRefs != null)
             {
-                foreach (var dref in node.Elements("DocumentReference"))
+                foreach (var dref in node.Elements(documentReferenceName))
                 {
                     DocumentReferences.Add(new BCFDocumentReference(dref));
                 }
             }
 
-            var relTopics = node.Elements("RelatedTopic").FirstOrDefault();
+            var relTopics = node.Elements(relatedTopicName).FirstOrDefault();
             if (relTopics != null)
             {
-                foreach (var rt in node.Elements("RelatedTopic"))
+                foreach (var rt in node.Elements(relatedTopicName))
                 {
                     RelatedTopics.Add(new BCFRelatedTopic(rt));
                 }
