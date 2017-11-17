@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Markup>
+  <Header>
+    <File IfcProject="IfcProject___________1" IfcSpatialStructureElement="IfcSpatialStructureEl1" isExternal="true">
+      <Filename>Filename1</Filename>
+      <Date>1900-01-01T01:01:01+01:00</Date>
+      <Reference>Reference1</Reference>
+    </File>
+    <File IfcProject="IfcProject___________2" IfcSpatialStructureElement="IfcSpatialStructureEl2" isExternal="true">
+      <Filename>Filename2</Filename>
+      <Date>0001-01-01T00:00:00+01:00</Date>
+      <Reference>Reference2</Reference>
+    </File>
+    <File IfcProject="IfcProject___________3" IfcSpatialStructureElement="IfcSpatialStructureEl3" isExternal="false">
+      <Filename>Filename3</Filename>
+      <Date>9999-12-31T23:59:59.9999999+01:00</Date>
+      <Reference>Reference3</Reference>
+    </File>
+  </Header>
+  <Topic Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" TopicType="TopicType1" TopicStatus="TopicStatus1">
+    <ReferenceLink>ReferenceLink1</ReferenceLink>
+    <Title>Title1</Title>
+    <Priority>Priority1</Priority>
+    <Index>1</Index>
+    <Labels>Labels1</Labels>
+    <Labels>Labels2</Labels>
+    <Labels>Labels3</Labels>
+    <CreationDate>1900-01-01T01:01:01+01:00</CreationDate>
+    <CreationAuthor>CreationAuthor1</CreationAuthor>
+    <ModifiedDate>1900-01-01T01:01:01+01:00</ModifiedDate>
+    <ModifiedAuthor>ModifiedAuthor1</ModifiedAuthor>
+    <AssignedTo>AssignedTo1</AssignedTo>
+    <Description>Description1</Description>
+    <BimSnippet SnippetType="SnippetType1" isExternal="false">
+      <Reference>Reference1</Reference>
+      <ReferenceSchema>ReferenceSchema1</ReferenceSchema>
+    </BimSnippet>
+    <DocumentReferences Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" isExternal="false">
+      <ReferencedDocument>ReferencedDocument1</ReferencedDocument>
+      <Description>Description1</Description>
+    </DocumentReferences>
+    <DocumentReferences Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" isExternal="true">
+      <ReferencedDocument>ReferencedDocument2</ReferencedDocument>
+      <Description>Description2</Description>
+    </DocumentReferences>
+    <DocumentReferences Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" isExternal="false">
+      <ReferencedDocument>ReferencedDocument3</ReferencedDocument>
+      <Description>Description3</Description>
+    </DocumentReferences>
+    <RelatedTopics Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <RelatedTopics Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <RelatedTopics Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+  </Topic>
+  <Comment Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0">
+    <VerbalStatus>VerbalStatus1</VerbalStatus>
+    <Status>Unknown</Status>
+    <Date>1900-01-01T01:01:01+01:00</Date>
+    <Author>Author1</Author>
+    <Comment>Comment1</Comment>
+    <Topic Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <Viewpoint Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <ReplyToComment Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <ModifiedDate>1900-01-01T01:01:01+01:00</ModifiedDate>
+    <ModifiedAuthor>ModifiedAuthor1</ModifiedAuthor>
+  </Comment>
+  <Comment Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0">
+    <VerbalStatus>VerbalStatus2</VerbalStatus>
+    <Status>Status1</Status>
+    <Date>2001-01-01T00:00:00+01:00</Date>
+    <Author>Author2</Author>
+    <Comment>Comment2</Comment>
+    <Topic Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <Viewpoint Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <ReplyToComment Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <ModifiedDate>0001-01-01T00:00:00+01:00</ModifiedDate>
+    <ModifiedAuthor>ModifiedAuthor2</ModifiedAuthor>
+  </Comment>
+  <Comment Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0">
+    <VerbalStatus>VerbalStatus3</VerbalStatus>
+    <Status>Status2</Status>
+    <Date>9999-12-31T23:59:59.9999999+01:00</Date>
+    <Author>Author3</Author>
+    <Comment>Comment3</Comment>
+    <Topic Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <Viewpoint Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <ReplyToComment Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0" />
+    <ModifiedDate>9999-12-31T23:59:59.9999999+01:00</ModifiedDate>
+    <ModifiedAuthor>ModifiedAuthor3</ModifiedAuthor>
+  </Comment>
+  <Viewpoints Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0">
+    <Viewpoint>Viewpoint1</Viewpoint>
+    <Snapshot>Snapshot1</Snapshot>
+  </Viewpoints>
+  <Viewpoints Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0">
+    <Viewpoint>Viewpoint2</Viewpoint>
+    <Snapshot>Snapshot2</Snapshot>
+  </Viewpoints>
+  <Viewpoints Guid="2158b50f-8069-4ec5-a1b1-f2df82ad1ea0">
+    <Viewpoint>Viewpoint3</Viewpoint>
+    <Snapshot>Snapshot3</Snapshot>
+  </Viewpoints>
+</Markup>
