@@ -28,17 +28,11 @@ namespace Xbim.BCF.XMLNodes
         public BCFComponentVisibility Visibility
         {
             get { return _visibility; }
-            set
-            {
-                if (ReferenceEquals(value, null))
-                {
-                    throw new ArgumentException(this.GetType().Name + " - Visibility is mandatory");
-                }
-                else
-                {
-                    _visibility = value;
-                }
-            }
+            set { _visibility = value; }
+        }
+        public bool ShouldSerializeVisibility()
+        {
+            return Visibility != null;
         }
 
         [XmlArray(ElementName = "Coloring", Order = 4)]
@@ -79,7 +73,7 @@ namespace Xbim.BCF.XMLNodes
                 var selection = node.Element("Selection");
                 Selection = selection != null ? new BCFComponentSelection(selection, version) : null;
                 var visibility = node.Element("Visibility");
-                Visibility = new BCFComponentVisibility(visibility, version);
+                Visibility = visibility != null ? new BCFComponentVisibility(visibility, version) : null;
                 var coloring = node.Element("Coloring");
                 if (coloring != null)
                     Colorings = new List<BCFComponentColoringColor>(coloring.Elements("Color").Select(c => new BCFComponentColoringColor(c.Attribute("Color")?.Value)));
