@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Xml.Linq;
 using System.Xml.Serialization;
@@ -14,9 +15,9 @@ namespace Xbim.BCF
         /// </summary>
         public MarkupXMLFile Markup { get; set; }
         /// <summary>
-        /// .bcfv File Projection
+        /// Collection of key/value pairs representing the (Key)name and (Value).bcfv file projection of a .bcfv file associated with the topic
         /// </summary>
-        public VisualizationXMLFile Visualization { get; set; }
+        public Dictionary<string, VisualizationXMLFile> Visualizations { get; set; }
         /// <summary>
         /// Collection of key/value pairs representing the (Key)name and (Value)Base64 String representations of a .png file associated with the topic
         /// </summary>
@@ -25,6 +26,7 @@ namespace Xbim.BCF
         public Topic()
         {
             Snapshots = new List<KeyValuePair<String, byte[]>>();
+            Visualizations = new Dictionary<string, VisualizationXMLFile>();
         }
     }
 }

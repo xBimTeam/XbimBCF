@@ -55,11 +55,27 @@
     <Compile Include="..\SharedAssemblyInfo.cs">
       <Link>Properties\SharedAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="2.0\BCF20Tests.cs" />
     <Compile Include="BCFTests.cs" />
     <Compile Include="BCFTestsXMLHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="2.0\XML\markup20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="2.0\XML\project20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2.0\XML\Readme.txt" />
+    <Content Include="2.0\XML\version20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2.0\XML\visinfo20.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="2.0\XSD\Readme.txt" />
     <Content Include="XSD\markup.xsd">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -98,6 +114,20 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="XSD\Readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="2.0\XSD\markup20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="2.0\XSD\project20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="2.0\XSD\version20.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="2.0\XSD\visinfo20.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

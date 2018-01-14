@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿    using System;
+using System.Collections.Generic;
 using System.Xml.Linq;
 using System.Linq;
 using System.Xml.Serialization;
@@ -9,8 +10,26 @@ namespace Xbim.BCF
     [XmlType("VisualizationInfo")]
     public class VisualizationXMLFile
     {
-        [XmlArray(Order = 1)]
-        public List<BCFComponent> Components;
+        private Guid _guid;
+        [XmlAttribute]
+        public Guid Guid
+        {
+            get { return _guid; }
+            set
+            {
+                if (value == null || value == System.Guid.Empty)
+                {
+                    throw new ArgumentException(this.GetType().Name + " - Guid attribute is mandatory and must contain a valid Guid value");
+                }
+                else
+                {
+                    _guid = value;
+                }
+            }
+        }
+
+        [XmlElement(Order = 1)]
+        public BCFComponents Components;
         [XmlElement(Order = 2)]
         public BCFOrthogonalCamera OrthogonalCamera { get; set; }
         [XmlElement(Order = 3)]
@@ -19,23 +38,35 @@ namespace Xbim.BCF
         public List<BCFLine> Lines;
         [XmlArray(Order = 5)]
         public List<BCFClippingPlane> ClippingPlanes;
-        [XmlElement(ElementName = "Bitmaps", Order = 6)]
+        [XmlElement(ElementName = "Bitmap", Order = 6)]
         public List<BCFBitmap> Bitmaps;
 
-        public VisualizationXMLFile()
+        private VisualizationXMLFile()
         {
-            Components = new List<BCFComponent>();
+        }
+
+        public VisualizationXMLFile(Guid id)
+        {
+            Guid = id;
+            Components = new BCFComponents();
             Lines = new List<BCFLine>();
             ClippingPlanes = new List<BCFClippingPlane>();
             Bitmaps = new List<BCFBitmap>();
         }
 
-        public VisualizationXMLFile(XDocument xdoc)
+        public VisualizationXMLFile(XDocument xdoc, string version)
         {
-            Components = new List<BCFComponent>();
+            Components = new BCFComponents();
             Lines = new List<BCFLine>();
             ClippingPlanes = new List<BCFClippingPlane>();
             Bitmaps = new List<BCFBitmap>();
+
+            string bitmapName = "Bitmap";
+            if (version == "2.0")
+                bitmapName = "Bitmaps";
+
+            if (!Guid.TryParse((String)xdoc.Root.Attribute("Guid"), out this._guid))
+                this.Guid = Guid.NewGuid();
 
             var orth = xdoc.Root.Elements("OrthogonalCamera").FirstOrDefault();
             if (orth != null)
@@ -47,9 +78,10 @@ namespace Xbim.BCF
             {
                 PerspectiveCamera = new BCFPerspectiveCamera(pers);
             }
-            foreach (var comp in xdoc.Root.Element("Components").Elements("Component"))
+            var components = xdoc.Root.Element("Components");
+            if (components != null)
             {
-                Components.Add(new BCFComponent(comp));
+                Components = new BCFComponents(components, version);
             }
             var lines = xdoc.Root.Elements("Lines").FirstOrDefault();
             if (lines != null)
@@ -67,10 +99,10 @@ namespace Xbim.BCF
                     ClippingPlanes.Add(new BCFClippingPlane(plane));
                 }
             }
-            var bitmaps = xdoc.Root.Elements("Bitmaps").FirstOrDefault();
+            var bitmaps = xdoc.Root.Elements(bitmapName).FirstOrDefault();
             if (bitmaps != null)
             {
-                foreach (var bmap in xdoc.Root.Elements("Bitmaps"))
+                foreach (var bmap in xdoc.Root.Elements(bitmapName))
                 {
                     Bitmaps.Add(new BCFBitmap(bmap));
                 }

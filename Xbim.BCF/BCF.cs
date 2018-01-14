@@ -49,7 +49,10 @@ namespace Xbim.BCF
                 {
                     bcf.Version = new VersionXMLFile(XDocument.Load(entry.Open()));
                 }
-                else if (entry.FullName.EndsWith(".bcf", StringComparison.OrdinalIgnoreCase))
+            }
+            foreach (ZipArchiveEntry entry in archive.Entries)
+            {
+                if (entry.FullName.EndsWith(".bcf", StringComparison.OrdinalIgnoreCase))
                 {
                     if (entry.ExtractGuidFolderName() != currentGuid)
                     {
@@ -60,7 +63,7 @@ namespace Xbim.BCF
                         currentGuid = entry.ExtractGuidFolderName();
                         currentTopic = new Topic();
                     }
-                    currentTopic.Markup = new MarkupXMLFile(XDocument.Load(entry.Open()));
+                    currentTopic.Markup = new MarkupXMLFile(XDocument.Load(entry.Open()), bcf.Version.VersionId);
                 }
                 else if (entry.FullName.EndsWith(".bcfv", StringComparison.OrdinalIgnoreCase))
                 {
@@ -73,7 +76,7 @@ namespace Xbim.BCF
                         currentGuid = entry.ExtractGuidFolderName();
                         currentTopic = new Topic();
                     }
-                    currentTopic.Visualization = new VisualizationXMLFile(XDocument.Load(entry.Open()));
+                    currentTopic.Visualizations.Add(entry.ExtractFileName(), new VisualizationXMLFile(XDocument.Load(entry.Open()), bcf.Version.VersionId));
                 }
                 else if (entry.FullName.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
                 {
@@ -89,7 +92,7 @@ namespace Xbim.BCF
                     using (MemoryStream ms = new MemoryStream())
                     {
                         entry.Open().CopyTo(ms);
-                        currentTopic.Snapshots.Add(new KeyValuePair<string, byte[]>(entry.FullName, ms.ToArray()));
+                        currentTopic.Snapshots.Add(new KeyValuePair<string, byte[]>(entry.ExtractFileName(), ms.ToArray()));
                     }
                 }
             }
@@ -153,14 +156,17 @@ namespace Xbim.BCF
                         }
                     }
 
-                    string bcfvName = t.Markup.Topic.Guid.ToString() + "/viewpoint.bcfv";
-                    var bcfv = archive.CreateEntry(bcfvName);
-                    using (var bcfvStream = bcfv.Open())
+                    foreach (var visualization in t.Visualizations)
                     {
-                        using (var bcfvWriter = new StreamWriter(bcfvStream))
+                        string bcfvName = string.Format("{0}/{1}", t.Markup.Topic.Guid, visualization.Key);
+                        var bcfv = archive.CreateEntry(bcfvName);
+                        using (var bcfvStream = bcfv.Open())
                         {
-                            bcfvSerializer.Serialize(bcfvWriter, t.Visualization);
-                            bcfvWriter.Close();
+                            using (var bcfvWriter = new StreamWriter(bcfvStream))
+                            {
+                                bcfvSerializer.Serialize(bcfvWriter, visualization.Value);
+                                bcfvWriter.Close();
+                            }
                         }
                     }
 

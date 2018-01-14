@@ -17,5 +17,18 @@ namespace Xbim.BCF
                 throw new ArgumentException("Topic folder name must be a valid Guid");
             }
         }
+        
+        public static string ExtractFileName(this ZipArchiveEntry entry)
+        {
+            string snapshotName = entry.FullName.Substring(entry.FullName.LastIndexOf('/') + 1);
+            if (!string.IsNullOrWhiteSpace(snapshotName))
+            {
+                return snapshotName;
+            }
+            else
+            {
+                throw new ArgumentException("Invalid snapshot path");
+            }
+        }
     }
 }
