@@ -93,11 +93,20 @@ namespace Xbim.BCF.XMLNodes
         {
             return Index != null;
         }
+        /// <summary>
+        /// Topic Labels. Tags for grouping Topics. The list of possible values are defined in the extension schema.
+        /// </summary>
+        [XmlElement(Order = 6)]
+        public String Labels { get; set; }
+        public bool ShouldSerializeLabels()
+        {
+            return !string.IsNullOrEmpty(Labels);
+        }
         private DateTime? _creationDate;
         /// <summary>
         /// Date when the topic was created
         /// </summary>
-        [XmlElement(Order = 6)]
+        [XmlElement(Order = 7)]
         public DateTime? CreationDate
         {
             get { return _creationDate; }
@@ -117,7 +126,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// User who created the topic
         /// </summary>
-        [XmlElement(Order = 7)]
+        [XmlElement(Order = 8)]
         public String CreationAuthor
         {
             get { return _creationAuthor; }
@@ -135,7 +144,7 @@ namespace Xbim.BCF.XMLNodes
         }
         /// Date when the topic was last modified
         /// </summary>
-        [XmlElement(Order = 8)]
+        [XmlElement(Order = 9)]
         public DateTime? ModifiedDate { get; set; }
         public bool ShouldSerializeModifiedDate()
         {
@@ -144,7 +153,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// User who modified the topic
         /// </summary>
-        [XmlElement(Order = 9)]
+        [XmlElement(Order = 10)]
         public String ModifiedAuthor { get; set; }
         public bool ShouldSerializeModifiedAuthor()
         {
@@ -153,7 +162,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// Due date
         /// </summary>
-        [XmlElement(Order = 10)]
+        [XmlElement(Order = 11)]
         public DateTime? DueDate { get; set; }
         public bool ShouldSerializeDueDate()
         {
@@ -162,7 +171,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// The user to whom this topic is assigned to
         /// </summary>
-        [XmlElement(Order = 11)]
+        [XmlElement(Order = 12)]
         public String AssignedTo { get; set; }
         public bool ShouldSerializeAssignedTo()
         {
@@ -171,7 +180,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// Stage
         /// </summary>
-        [XmlElement(Order = 12)]
+        [XmlElement(Order = 13)]
         public String Stage { get; set; }
         public bool ShouldSerializeStage()
         {
@@ -189,7 +198,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// BimSnippet is an additional file containing information related to one or multiple topics. For example, it can be an IFC file containing provisions for voids.
         /// </summary>
-        [XmlElement(Order = 13)]
+        [XmlElement(Order = 14)]
         public BCFBimSnippet BimSnippet { get; set; }
         public bool ShouldSerializeBimSnippet()
         {
@@ -198,7 +207,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// DocumentReference provides a means to associate additional payloads or links with topics. The references may point to a file within the .bcfzip or to an external location.
         /// </summary>
-        [XmlElement(ElementName = "DocumentReference", Order = 14)]
+        [XmlElement(ElementName = "DocumentReference", Order = 15)]
         public List<BCFDocumentReference> DocumentReferences;
         public bool ShouldSerializeDocumentReferences()
         {
@@ -207,7 +216,7 @@ namespace Xbim.BCF.XMLNodes
         /// <summary>
         /// Relation between topics (Clash -> PfV -> Opening)
         /// </summary>
-        [XmlElement(ElementName = "RelatedTopic", Order = 15)]
+        [XmlElement(ElementName = "RelatedTopic", Order = 16)]
         public List<BCFRelatedTopic> RelatedTopics;
         public bool ShouldSerializeRelatedTopics()
         {
