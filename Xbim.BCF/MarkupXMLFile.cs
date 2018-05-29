@@ -27,8 +27,8 @@ namespace Xbim.BCF
         {
             Comments = new List<BCFComment>();
             Viewpoints = new List<BCFViewpoint>();
-
-            Header = new BCFHeader(xdoc.Root.Element("Header"));
+            if (xdoc.Root.Element("Header") != null)
+                Header = new BCFHeader(xdoc.Root.Element("Header"));
             Topic = new BCFTopic(xdoc.Root.Element("Topic"));
             foreach (var comment in (xdoc.Root.Elements("Comment")))
             {
