@@ -32,7 +32,8 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (ReferenceEquals(value, null))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Visibility is mandatory");
+                    // don't stop if Visibility is missing
+                    // throw new ArgumentException(this.GetType().Name + " - Visibility is mandatory");
                 }
                 else
                 {

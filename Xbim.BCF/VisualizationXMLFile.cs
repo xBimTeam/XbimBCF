@@ -19,7 +19,8 @@ namespace Xbim.BCF
             {
                 if (value == null || value == System.Guid.Empty)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Guid attribute is mandatory and must contain a valid Guid value");
+                    // don't stop if Guid is missing
+                    // throw new ArgumentException(this.GetType().Name + " - Guid attribute is mandatory and must contain a valid Guid value");
                 }
                 else
                 {

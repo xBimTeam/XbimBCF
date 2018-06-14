@@ -134,7 +134,8 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CreationAuthor is mandatory");
+                    // don't stop if CreationAuthor is missing
+                    // throw new ArgumentException(this.GetType().Name + " - CreationAuthor is mandatory");
                 }
                 else
                 {
