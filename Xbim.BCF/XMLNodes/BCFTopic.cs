@@ -251,6 +251,7 @@ namespace Xbim.BCF.XMLNodes
             Description = (String)node.Element("Description") ?? "";
             Priority = (String)node.Element("Priority") ?? "";
             Index = (int?)node.Element("Index") ?? null;
+            Labels = (String)node.Element("Labels") ?? "";
             CreationDate = (DateTime?)node.Element("CreationDate") ?? null;
             CreationAuthor = (String)node.Element("CreationAuthor") ?? "";
             ModifiedDate = (DateTime?)node.Element("ModifiedDate") ?? null;
