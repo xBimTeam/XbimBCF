@@ -1,14 +1,16 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xbim.BCF", "Xbim.BCF\Xbim.BCF.csproj", "{60BD2BFD-A99E-4CDD-9B82-88A96E4380CD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7496DDF4-4886-4144-987F-62704F5A16A3}"
 	ProjectSection(SolutionItems) = preProject
-		..\XbimEssentials\.gitignore = ..\XbimEssentials\.gitignore
-		Xbim.BCF.nuspec = Xbim.BCF.nuspec
+		.gitignore = .gitignore
+		Directory.Build.props = Directory.Build.props
+		LICENCE.md = LICENCE.md
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Xbim.BCF.Tests", "Xbim.BCF.Tests\Xbim.BCF.Tests.csproj", "{F53F4ACE-8682-4D65-90B2-5D9686E99AEE}"
@@ -30,5 +32,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {56A505C1-9A07-48AE-8AD1-B6D0805278C6}
 	EndGlobalSection
 EndGlobal

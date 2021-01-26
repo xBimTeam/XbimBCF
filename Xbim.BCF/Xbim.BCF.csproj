@@ -1,114 +1,13 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{60BD2BFD-A99E-4CDD-9B82-88A96E4380CD}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Xbim.BCF</RootNamespace>
-    <AssemblyName>Xbim.BCF</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\Output\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>
-    </DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\Output\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\Output\Release\Xbim.BCF.XML</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>XbimOpenSourceKeyFile.snk</AssemblyOriginatorKeyFile>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.IO.Compression.FileSystem" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="..\SharedAssemblyInfo.cs">
-      <Link>Properties\SharedAssemblyInfo.cs</Link>
-    </Compile>
-    <Compile Include="..\SharedFileVersionInfo.cs">
-      <Link>Properties\SharedFileVersionInfo.cs</Link>
-    </Compile>
-    <Compile Include="AttrIDNode.cs" />
-    <Compile Include="BCF.cs" />
-    <Compile Include="MarkupXMLFile.cs" />
-    <Compile Include="ProjectXMLFile.cs" />
-    <Compile Include="Topic.cs" />
-    <Compile Include="Vector.cs" />
-    <Compile Include="VersionXMLFile.cs" />
-    <Compile Include="VisualizationXMLFile.cs" />
-    <Compile Include="XMLNodes\BCFComponentColoringColor.cs" />
-    <Compile Include="XMLNodes\BCFComponents.cs" />
-    <Compile Include="XMLNodes\BCFComponentSelection.cs" />
-    <Compile Include="XMLNodes\BCFComponentVisibility.cs" />
-    <Compile Include="XMLNodes\BCFViewSetupHints.cs" />
-    <Compile Include="ZipArchiveEntryExtensions.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XMLNodes\BCFBimSnippet.cs" />
-    <Compile Include="XMLNodes\BCFBitmap.cs" />
-    <Compile Include="XMLNodes\BCFClippingPlane.cs" />
-    <Compile Include="XMLNodes\BCFComment.cs" />
-    <Compile Include="XMLNodes\BCFComponent.cs" />
-    <Compile Include="XMLNodes\BCFDocumentReference.cs" />
-    <Compile Include="XMLNodes\BCFFile.cs" />
-    <Compile Include="XMLNodes\BCFHeader.cs" />
-    <Compile Include="XMLNodes\BCFLine.cs" />
-    <Compile Include="XMLNodes\BCFOrthogonalCamera.cs" />
-    <Compile Include="XMLNodes\BCFPerspectiveCamera.cs" />
-    <Compile Include="XMLNodes\BCFProject.cs" />
-    <Compile Include="XMLNodes\BCFRelatedTopic.cs" />
-    <Compile Include="XMLNodes\BCFTopic.cs" />
-    <Compile Include="XMLNodes\BCFViewpoint.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="XbimOpenSourceKeyFile.snk" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <Year>$([System.DateTime]::Now.ToString("yy"))</Year>
-    <Month>$([System.DateTime]::Now.ToString("MM"))</Month>
-    <Day>$([System.DateTime]::Now.ToString("dd"))</Day>
-    <Minute>$([System.Int32]::Parse($([System.DateTime]::Now.ToString("mm"))))</Minute>
-    <Hour>$([System.Int32]::Parse($([System.DateTime]::Now.ToString("HH"))))</Hour>
-    <MinuteOfDay>$([MSBuild]::Add($(Minute),$([MSBuild]::Multiply($(Hour),60))))</MinuteOfDay>
-    <HalfMinuteOfDay>$([System.Convert]::ToInt16($([MSBuild]::Divide($(MinuteOfDay), 2))))</HalfMinuteOfDay>
-    <AssemblyFileVersionAttribute>[assembly:System.Reflection.AssemblyFileVersion("4.0.$(Year)$(Month).$(Day)$(HalfMinuteOfDay)")];</AssemblyFileVersionAttribute>
-  </PropertyGroup>
-  <Target Name="BeforeBuild">
-    <WriteLinesToFile File="..\SharedFileVersionInfo.cs" Lines="$(AssemblyFileVersionAttribute)" Overwrite="true" Encoding="Unicode" />
-  </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFrameworks>net45;netstandard2.0;</TargetFrameworks>
+		<Title>Xbim BCF</Title>
+		<Description>Xbim BCF is a standalone Xbim library which allows reading and writing of BCF (https://github.com/BuildingSMART/BCF/) files.</Description>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Include="..\xbim-toolkit-icon.png" Pack="True" PackagePath="\" />
+	</ItemGroup>
+	<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+	  <Reference Include="System.IO.Compression" />
+	</ItemGroup>
 </Project>

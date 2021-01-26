@@ -1,0 +1,31 @@
+<Project>
+  <PropertyGroup>
+    <IsTestProject Condition="$(MSBuildProjectName.EndsWith('Tests')) OR $(MSBuildProjectName.EndsWith('.Test'))">true</IsTestProject>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
+    <GenerateDocumentationFile Condition=" '$(IsTestProject)' != 'true' ">true</GenerateDocumentationFile>
+    <NoWarn>CS1591</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <Version>5.1.0.0</Version>
+    <Copyright>Copyright © XBIM Ltd</Copyright>
+    <Company>Xbim Ltd.</Company>
+    <Authors>Steve Lockley, Martin Cerny and XBIMTeam Contributors</Authors>
+    <Product>XBIM Essentials</Product>
+	<PackageLicenseExpression>CDDL-1.0</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/xBimTeam/XbimBCF</PackageProjectUrl>
+	<PackageIcon>xbim-toolkit-icon.png</PackageIcon>
+    <PackageReleaseNotes>v5.1 Updated to support .netstandard 2
+    </PackageReleaseNotes>
+    <PackageTags>BIM, IFC, IfcXml, IfcZip, COBie, .Net, C#, BuildingSmart, BCF, Bim Collaboration Format</PackageTags>
+    <RepositoryUrl>https://github.com/xBimTeam/XbimBCF/tree/master</RepositoryUrl>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <SignAssembly>true</SignAssembly>   
+    <AssemblyOriginatorKeyFile>..\XbimOpenSourceKeyFile.snk</AssemblyOriginatorKeyFile>   
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+</Project>
