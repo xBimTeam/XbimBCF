@@ -19,6 +19,9 @@ bld/
 [Oo]bj/
 Output/
 
+# Visual Studo 2015 cache/options directory
+.vs/
+
 # Roslyn cache directories
 *.ide/
 

@@ -133,6 +133,7 @@ namespace Xbim.BCF.XMLNodes
                 }
             }
         }
+        /// <summary>
         /// Date when the topic was last modified
         /// </summary>
         [XmlElement(Order = 8)]
