@@ -1,0 +1,141 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+  branches:
+    include:
+    - master
+    - develop
+  paths:
+    exclude:
+    - README.md
+    - CHANGELOG.md
+    - CONTRIBUTING.md
+
+pool:
+  vmImage: 'VS2017-Win2016'
+
+variables:
+  solution: '**.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  major: 5
+  minor: 1
+  # creates a counter called bcfversion and seeds it at 100 and then assigns the value to a variable named buildno.
+  buildNo: $[counter('bcfversion', 100)]
+  
+name: $(BuildDefinitionName)_$(SourceBranchName)_$(major).$(minor).$(buildNo)
+
+steps:
+# Windows script setting up  $(packageversion) of the nuget package based on branch
+# Master branch
+- script: |
+    echo ##vso[task.setvariable variable=packageversion]$(major).$(minor).$(buildNo)
+  displayName: 'Setting Master Nuget PackageVersion'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+- script: | 
+    echo ##vso[task.setvariable variable=packageversion]$(major).$(minor).$(buildNo)-$(Build.SourceBranchName)
+  displayName: 'Setting Prerelease Nuget PackageVersion'
+  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
+
+# Windows script setting up $(fileversion) used to stamp AssemblyFileVersions. 
+# By convention we use 'Major.Minor.BuildNo.0' on Master and 'Major.Minor.0.BuildNo' on other branches
+# Master branch
+- script: | 
+    echo ##vso[task.setvariable variable=fileversion]$(major).$(minor).$(buildNo).0
+  displayName: 'Setting FileVersion'
+  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+# Any other branch
+- script: | 
+    echo ##vso[task.setvariable variable=fileversion]$(major).$(minor).0.$(buildNo)
+  displayName: 'Setting Prerelease FileVersion'
+  condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
+
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 4.6.2'
+  inputs:
+    versionSpec: '4.6.2'
+
+# Version .NET Core project files
+# Description - Applies a version to a .NET Core assembly via the .csproj files based on the build number. 
+# Based on https://github.com/rfennell/AzurePipelines/wiki/Version-Assemblies-and-Packages-Tasks-YAML#versiondotnetcoreassembliestask
+- task: VersionDotNetCoreAssemblies@2
+  displayName: 'Versioning netcore projects $(fileversion)'
+  inputs: 
+    # Required arguments
+    Path: $(Build.SourcesDirectory)
+    VersionNumber: $(fileversion)
+    VersionRegex: \d+\.\d+\.\d+\.\d+
+    FilenamePattern: .csproj
+    Field: FileVersion
+    OutputVersion: OutputedVersion
+
+# nuget restore sln
+- task: NuGetCommand@2
+  displayName: 'NuGet restore sln'
+  inputs:
+    restoreSolution: '$(solution)'
+    feedsToUse: config
+    nugetConfigPath: 'nuget.config'
+
+# build
+- task: VSBuild@1
+  displayName: 'Build solution'
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/t:build'
+    platform: '$(BuildPlatform)'
+    configuration: '$(BuildConfiguration)'
+
+# Unit tests
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test $(BuildConfiguration)'
+  inputs:
+    command: test
+    projects: '**/*Tests/*.csproj'
+    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage"'
+
+
+# Pack BCF
+- script: dotnet pack Xbim.BCF/Xbim.BCF.csproj -c $(BuildConfiguration) -o $(Build.BinariesDirectory) /p:PackageVersion=$(packageversion)
+  displayName: 'Xbim.BCF - pack'
+
+  
+# Copy artifacts and Publish
+- task: CopyFiles@2
+  name: 'StagingArtefacts'
+  inputs:
+    sourceFolder: '$(Build.BinariesDirectory)'
+    contents: '**\*.nupkg' 
+    targetFolder: '$(build.artifactstagingdirectory)'
+    cleanTargetFolder: true
+    
+# Publish to master or develop MyGet feed based on the source branch
+#- task: NuGetCommand@2
+#  name: 'MyGetPublishing_Master'
+#  condition: eq(variables['Build.SourceBranch'], 'refs/heads/master')
+#  inputs:
+#    command: push
+#    nuGetFeedType: external
+#    publishFeedCredentials: 'MyGetMaster'
+#    versioningScheme: byEnvVar
+#    versionEnvVar: packageversion
+
+#- task: NuGetCommand@2
+#  name: 'MyGetPublishing_Develop'
+#  condition: eq(variables['Build.SourceBranch'], 'refs/heads/develop')
+#  inputs:
+#    command: push
+#    nuGetFeedType: external
+#   publishFeedCredentials: 'MyGetDev'
+#    versioningScheme: byEnvVar
+#    versionEnvVar: packageversion
+    
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact to drop'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+  condition: succeededOrFailed()
