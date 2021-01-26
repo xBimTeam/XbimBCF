@@ -54,10 +54,8 @@ steps:
   displayName: 'Setting Prerelease FileVersion'
   condition: ne(variables['Build.SourceBranch'], 'refs/heads/master')
 
-- task: NuGetToolInstaller@0
-  displayName: 'Use NuGet 4.6.2'
-  inputs:
-    versionSpec: '4.6.2'
+- task: NuGetToolInstaller@1
+  displayName: 'Install Nuget'
 
 # Version .NET Core project files
 # Description - Applies a version to a .NET Core assembly via the .csproj files based on the build number. 
