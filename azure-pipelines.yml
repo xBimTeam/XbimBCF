@@ -75,9 +75,9 @@ steps:
 - task: NuGetCommand@2
   displayName: 'NuGet restore sln'
   inputs:
+    command: 'restore'
     restoreSolution: '$(solution)'
-    feedsToUse: config
-    nugetConfigPath: 'nuget.config'
+
 
 # build
 - task: VSBuild@1
