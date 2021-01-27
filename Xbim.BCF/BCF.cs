@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Xbim.BCF.XMLNodes;
 using System.IO.Compression;
 using System.IO;
 using System.Xml.Linq;
@@ -23,81 +22,107 @@ namespace Xbim.BCF
         /// </summary>
         public List<Topic> Topics;
 
+        /// <summary>
+        /// A collection of warnings and errors identified when processing a BCF
+        /// </summary>
+        public IEnumerable<ValidationMessage> ValidationMessages
+        {
+            get => _messages;
+        }
+
         public BCF()
         {
             Topics = new List<Topic>();
         }
 
+        private IList<ValidationMessage> _messages = new List<ValidationMessage>();
+
+        internal static BCF Instance { get; private set; }
+
+        internal static object lockObj = new object();
+
         /// <summary>
         /// Creates an object representation of a bcf zip file.
         /// </summary>
-        /// <param name="BCFZipData">A Stream of bytes representing a bcf .zip file</param>
+        /// <param name="bcfZipData">A Stream of bytes representing a bcf .zip file</param>
         /// <returns>A new BCF object</returns>
-        public static BCF Deserialize(Stream BCFZipData)
+        public static BCF Deserialize(Stream bcfZipData)
         {
             BCF bcf = new BCF();
-            Topic currentTopic = null;
-            Guid currentGuid = Guid.Empty;
-            ZipArchive archive = new ZipArchive(BCFZipData);
-            foreach (ZipArchiveEntry entry in archive.Entries)
+            try
             {
-                if (entry.FullName.EndsWith(".bcfp", StringComparison.OrdinalIgnoreCase))
+                // 
+                lock (lockObj)
                 {
-                    bcf.Project = new ProjectXMLFile(XDocument.Load(entry.Open()));
-                }
-                else if (entry.FullName.EndsWith(".version", StringComparison.OrdinalIgnoreCase))
-                {
-                    bcf.Version = new VersionXMLFile(XDocument.Load(entry.Open()));
-                }
-                else if (entry.FullName.EndsWith(".bcf", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (entry.ExtractGuidFolderName() != currentGuid)
+                    Instance = bcf;
+                    Topic currentTopic = null;
+                    Guid currentGuid = Guid.Empty;
+                    ZipArchive archive = new ZipArchive(bcfZipData);
+                    foreach (ZipArchiveEntry entry in archive.Entries)
                     {
-                        if (currentTopic != null)
+                        if (entry.FullName.EndsWith(".bcfp", StringComparison.OrdinalIgnoreCase))
                         {
-                            bcf.Topics.Add(currentTopic);
+                            bcf.Project = new ProjectXMLFile(XDocument.Load(entry.Open()));
                         }
-                        currentGuid = entry.ExtractGuidFolderName();
-                        currentTopic = new Topic();
-                    }
-                    currentTopic.Markup = new MarkupXMLFile(XDocument.Load(entry.Open()));
-                }
-                else if (entry.FullName.EndsWith(".bcfv", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (entry.ExtractGuidFolderName() != currentGuid)
-                    {
-                        if (currentTopic != null)
+                        else if (entry.FullName.EndsWith(".version", StringComparison.OrdinalIgnoreCase))
                         {
-                            bcf.Topics.Add(currentTopic);
+                            bcf.Version = new VersionXMLFile(XDocument.Load(entry.Open()));
                         }
-                        currentGuid = entry.ExtractGuidFolderName();
-                        currentTopic = new Topic();
-                    }
-                    currentTopic.Visualizations.Add(entry.ExtractFileName(), new VisualizationXMLFile(XDocument.Load(entry.Open())));
-                }
-                else if (entry.FullName.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
-                {
-                    if (entry.ExtractGuidFolderName() != currentGuid)
-                    {
-                        if (currentTopic != null)
+                        else if (entry.FullName.EndsWith(".bcf", StringComparison.OrdinalIgnoreCase))
                         {
-                            bcf.Topics.Add(currentTopic);
+                            if (entry.ExtractGuidFolderName() != currentGuid)
+                            {
+                                if (currentTopic != null)
+                                {
+                                    bcf.Topics.Add(currentTopic);
+                                }
+                                currentGuid = entry.ExtractGuidFolderName();
+                                currentTopic = new Topic();
+                            }
+                            currentTopic.Markup = new MarkupXMLFile(XDocument.Load(entry.Open()));
                         }
-                        currentGuid = entry.ExtractGuidFolderName();
-                        currentTopic = new Topic();
+                        else if (entry.FullName.EndsWith(".bcfv", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (entry.ExtractGuidFolderName() != currentGuid)
+                            {
+                                if (currentTopic != null)
+                                {
+                                    bcf.Topics.Add(currentTopic);
+                                }
+                                currentGuid = entry.ExtractGuidFolderName();
+                                currentTopic = new Topic();
+                            }
+                            currentTopic.Visualizations.Add(entry.ExtractFileName(), new VisualizationXMLFile(XDocument.Load(entry.Open())));
+                        }
+                        else if (entry.FullName.EndsWith(".png", StringComparison.OrdinalIgnoreCase))
+                        {
+                            if (entry.ExtractGuidFolderName() != currentGuid)
+                            {
+                                if (currentTopic != null)
+                                {
+                                    bcf.Topics.Add(currentTopic);
+                                }
+                                currentGuid = entry.ExtractGuidFolderName();
+                                currentTopic = new Topic();
+                            }
+                            using (MemoryStream ms = new MemoryStream())
+                            {
+                                entry.Open().CopyTo(ms);
+                                currentTopic.Snapshots.Add(new KeyValuePair<string, byte[]>(entry.ExtractFileName(), ms.ToArray()));
+                            }
+                        }
                     }
-                    using (MemoryStream ms = new MemoryStream())
+                    if (currentTopic != null)
                     {
-                        entry.Open().CopyTo(ms);
-                        currentTopic.Snapshots.Add(new KeyValuePair<string, byte[]>(entry.ExtractFileName(), ms.ToArray()));
+                        bcf.Topics.Add(currentTopic);
                     }
+                    return bcf;
                 }
             }
-            if (currentTopic != null)
+            finally
             {
-                bcf.Topics.Add(currentTopic);
+                Instance = null;
             }
-            return bcf;
         }
 
         /// <summary>
@@ -184,6 +209,11 @@ namespace Xbim.BCF
             }
             memoryStream.Seek(0, SeekOrigin.Begin);
             return memoryStream;
+        }
+
+        internal void LogEvent(string context, string message, LogLevel logLevel = LogLevel.Error)
+        {
+            _messages.Add(new ValidationMessage(context, message, logLevel));
         }
     }
 }

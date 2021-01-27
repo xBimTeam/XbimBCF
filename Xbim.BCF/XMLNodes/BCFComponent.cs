@@ -19,14 +19,13 @@ namespace Xbim.BCF.XMLNodes
             get { return _ifcGuid; }
             set
             {
-                if (value.Length == 22)
+                if (value.Length != 22)
                 {
-                    _ifcGuid = value;
+                    Validator.RaiseError(nameof(BCFComponent), "IfcGuid must be 22 chars exactly", LogLevel.Warning);
                 }
-                else
-                {
-                    throw new ArgumentException(this.GetType().Name + " - IfcGuid - IfcGuid must be 22 chars exactly");
-                }
+                
+                _ifcGuid = value;
+                
             }
         }
         public bool ShouldSerializeIfcGuid()

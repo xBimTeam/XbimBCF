@@ -18,9 +18,9 @@ namespace Xbim.BCF.XMLNodes
             get { return _guid; }
             set
             {
-                if (value == null || value == System.Guid.Empty)
+                if (value == System.Guid.Empty)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Guid identifier is mandatory and must contain a valid Guid value");
+                    Validator.RaiseError(nameof(BCFTopic), "Guid identifier is mandatory and must contain a valid Guid value");
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Title is mandatory");
+                    Validator.RaiseError(nameof(BCFTopic), "Title is mandatory");
                 }
                 else
                 {
@@ -105,7 +105,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (ReferenceEquals(value, null))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CreationDate is mandatory");
+                    Validator.RaiseError(nameof(BCFTopic), "CreationDate is mandatory");
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CreationAuthor is mandatory");
+                    Validator.RaiseError(nameof(BCFTopic), "CreationAuthor is mandatory");
                 }
                 else
                 {

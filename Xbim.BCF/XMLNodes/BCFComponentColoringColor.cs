@@ -16,14 +16,11 @@ namespace Xbim.BCF.XMLNodes
             get { return _color; }
             set
             {
-                if (!string.IsNullOrEmpty(value) && IsHex(value))
+                if (string.IsNullOrEmpty(value) || !IsHex(value))
                 {
-                    _color = value;
+                    Validator.RaiseError(nameof(BCFComponentColoringColor), "Color - must be a valid hex sequence");
                 }
-                else
-                {
-                    throw new ArgumentException(this.GetType().Name + " - Color - must be a valid hex sequence");
-                }
+                _color = value;
             }
         }
 

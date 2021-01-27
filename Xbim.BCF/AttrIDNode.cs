@@ -16,14 +16,11 @@ namespace Xbim.BCF
             get { return _id; }
             set
             {
-                if (value == null || value == System.Guid.Empty)
+                if (value == System.Guid.Empty)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - identifier is mandatory and must contain a valid Guid value");
+                    Validator.RaiseError(nameof(AttrIDNode), "identifier is mandatory and must contain a valid Guid value");
                 }
-                else
-                {
-                    _id = value;
-                }
+                _id = value;
             }
         }
 
@@ -37,7 +34,7 @@ namespace Xbim.BCF
 
         public AttrIDNode(XElement node)
         {
-            ID = (System.Guid?)node.Attribute("Guid") ?? System.Guid.Empty;
+            ID = GuidHelper.Parse(node.Attribute("Guid").Value);
         }
     }
 }

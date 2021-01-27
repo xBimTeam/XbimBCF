@@ -16,12 +16,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CameraViewPoint - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFPerspectiveCamera), "CameraViewPoint - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _cameraViewPoint = value;
-                }
+                
+                _cameraViewPoint = value;
+                
             }
         }
         Vector _cameraDirection;
@@ -35,12 +34,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CameraDirection - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFPerspectiveCamera), "CameraDirection - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _cameraDirection = value;
-                }
+                
+                _cameraDirection = value;
+                
             }
         }
         Vector _cameraupVector;
@@ -54,12 +52,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CameraUpVector - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFPerspectiveCamera), "CameraUpVector - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _cameraupVector = value;
-                }
+                
+                _cameraupVector = value;
+                
             }
         }
         private double _fieldOfView;
@@ -71,14 +68,13 @@ namespace Xbim.BCF.XMLNodes
             get { return _fieldOfView; }
             set
             {
-                if (value == double.NaN || value < 45 || value > 60)
+                if (value == double.NaN || value < 0 || value > 360)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - FieldOfView - must be a valid 64-bit floating-point value between 45 and 60");
+                    Validator.RaiseError(nameof(BCFPerspectiveCamera), "FieldOfView - must be a valid 64-bit floating-point value between 0 and 360", LogLevel.Warning);
                 }
-                else
-                {
-                    _fieldOfView = value;
-                }
+                
+                _fieldOfView = value;
+                
             }
         }
 

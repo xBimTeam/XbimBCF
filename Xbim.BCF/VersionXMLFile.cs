@@ -22,7 +22,7 @@ namespace Xbim.BCF
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - VersionId is mandatory");
+                    Validator.RaiseError(nameof(VersionXMLFile), "VersionId is mandatory");
                 }
                 else
                 {

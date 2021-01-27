@@ -15,12 +15,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Location - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFClippingPlane), "Location - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _location = value;
-                }
+                
+                _location = value;
+                
             }
         }
 
@@ -32,12 +31,10 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Direction - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFClippingPlane), "Direction - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _direction = value;
-                }
+                _direction = value;
+                
             }
         }
 

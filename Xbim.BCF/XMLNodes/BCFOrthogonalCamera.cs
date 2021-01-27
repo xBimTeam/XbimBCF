@@ -16,12 +16,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CameraViewPoint - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFOrthogonalCamera), "CameraViewPoint - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _cameraViewPoint = value;
-                }
+                
+                _cameraViewPoint = value;
+                
             }
         }
         private Vector _cameraDirection;
@@ -35,12 +34,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CameraDirection - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFOrthogonalCamera), "CameraDirection - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _cameraDirection = value;
-                }
+                
+                _cameraDirection = value;
+                
             }
         }
         private Vector _cameraupVector;
@@ -54,12 +52,10 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - CameraUpVector - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFOrthogonalCamera), "CameraUpVector - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _cameraupVector = value;
-                }
+                _cameraupVector = value;
+                
             }
         }
         private double _viewToWorldScale;
@@ -73,7 +69,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - ViewToWorldScale - must be a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFOrthogonalCamera), "ViewToWorldScale - must be a valid 64-bit floating-point value");
                 }
                 else
                 {

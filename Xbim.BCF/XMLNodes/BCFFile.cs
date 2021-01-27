@@ -17,14 +17,11 @@ namespace Xbim.BCF.XMLNodes
             get { return _ifcProject; }
             set
             {
-                if (value.Length == 0 || value.Length == 22)
-                {
-                    _ifcProject = value;
+                if (value.Length != 0 && value.Length != 22)
+                {                
+                    Validator.RaiseError(nameof(BCFFile), "IfcProject - IfcGuid must be 22 chars exactly", LogLevel.Warning);
                 }
-                else
-                {
-                    throw new ArgumentException(this.GetType().Name + " - IFCProject - IFCguid must be 22 chars exactly");
-                }
+                _ifcProject = value;
             }
         }
         public bool ShouldSerializeIfcProject()
@@ -42,14 +39,11 @@ namespace Xbim.BCF.XMLNodes
             get { return _ifcSpatialStructureElement; }
             set
             {
-                if (value.Length == 0 || value.Length == 22)
+                if (value.Length != 0 && value.Length != 22)
                 {
-                    _ifcSpatialStructureElement = value;
+                    Validator.RaiseError(nameof(BCFFile), "IfcSpatialStructureElement - IfcGuid must be 22 chars exactly", LogLevel.Warning);
                 }
-                else
-                {
-                    throw new ArgumentException(this.GetType().Name + " - IfcSpatialStructureElement - IFCguid must be 22 chars exactly");
-                }
+                _ifcSpatialStructureElement = value;
             }
         }
         public bool ShouldSerializeIfcSpatialStructureElement()

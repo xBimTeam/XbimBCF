@@ -15,12 +15,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - StartPoint - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFLine), "StartPoint - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _startPoint = value;
-                }
+                
+                _startPoint = value;
+                
             }
         }
         private Vector _endPoint;
@@ -31,12 +30,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - EndPoint - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFLine), "EndPoint - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _endPoint = value;
-                }
+                
+                _endPoint = value;
+                
             }
         }
 

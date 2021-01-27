@@ -20,12 +20,9 @@ namespace Xbim.BCF.XMLNodes
                     || (!string.Equals(value, "PNG") && !string.Equals(value, "JPG"))
                     )
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Bitmap - is a mandatory value of either PNG or JPG (case sensitive)");
+                    Validator.RaiseError(nameof(BCFBitmap), "Bitmap - is a mandatory value of either PNG or JPG (case sensitive)");
                 }
-                else
-                {
-                    _bitmap = value;
-                }
+                _bitmap = value;
             }
         }
         private String _reference;
@@ -40,7 +37,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Reference - is a mandatory value");
+                    Validator.RaiseError(nameof(BCFBitmap), "Reference - is a mandatory value");
                 }
                 else
                 {
@@ -60,12 +57,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Location - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFBitmap), "Location - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _location = value;
-                }
+                
+                _location = value;
+                
             }
         }
         Vector _normal;
@@ -80,12 +76,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Normal - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFBitmap), "Normal - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _normal = value;
-                }
+                
+                _normal = value;
+                
             }
         }
         Vector _up;
@@ -100,12 +95,11 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value.X == double.NaN || value.Y == double.NaN || value.Z == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Up - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFBitmap), "Up - must contain X, Y and Z nodes containing a valid 64-bit floating-point value");
                 }
-                else
-                {
-                    _up = value;
-                }
+                
+                _up = value;
+                
             }
         }
         private double _height;
@@ -120,7 +114,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value == double.NaN)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Height - must contain a valid 64-bit floating-point value");
+                    Validator.RaiseError(nameof(BCFBitmap), "Height - must contain a valid 64-bit floating-point value");
                 }
                 else
                 {
@@ -144,6 +138,7 @@ namespace Xbim.BCF.XMLNodes
 
         public BCFBitmap(XElement node)
         {
+            Reference = (String)node.Element("Reference") ?? "";
             Location = new Vector((double?)node.Element("Location").Element("X") ?? double.NaN,
                                                        (double?)node.Element("Location").Element("Y") ?? double.NaN,
                                                        (double?)node.Element("Location").Element("Z") ?? double.NaN);
@@ -158,7 +153,6 @@ namespace Xbim.BCF.XMLNodes
 
             Height = (double?)node.Element("Height") ?? double.NaN;
             Bitmap = (String)node.Element("Bitmap") ?? "";
-            Reference = (String)node.Element("Reference") ?? "";
         }
     }
 }

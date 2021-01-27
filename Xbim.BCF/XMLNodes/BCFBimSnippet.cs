@@ -18,7 +18,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - SnippetType is mandatory");
+                    Validator.RaiseError(nameof(BCFBimSnippet), "SnippetType is mandatory");
                 }
                 else
                 {
@@ -38,7 +38,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Reference is mandatory");
+                    Validator.RaiseError(nameof(BCFBimSnippet), "Reference is mandatory");
                 }
                 else
                 {

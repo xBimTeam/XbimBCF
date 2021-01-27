@@ -18,9 +18,9 @@ namespace Xbim.BCF.XMLNodes
             get { return _guid; }
             set
             {
-                if (value == null || value == System.Guid.Empty)
+                if (value == System.Guid.Empty)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Guid attribute is mandatory and must contain a valid Guid value");
+                    Validator.RaiseError(nameof(BCFComment), "Guid attribute is mandatory and must contain a valid Guid value");
                 }
                 else
                 {
@@ -40,7 +40,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (value == null)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Date is mandatory");
+                    Validator.RaiseError(nameof(BCFComment), "Date is mandatory");
                 }
                 else
                 {
@@ -60,7 +60,7 @@ namespace Xbim.BCF.XMLNodes
             {
                 if (String.IsNullOrEmpty(value))
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Author is mandatory");
+                    Validator.RaiseError(nameof(BCFComment), "Author is mandatory");
                 }
                 else
                 {

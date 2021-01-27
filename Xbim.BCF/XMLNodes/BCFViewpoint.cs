@@ -15,9 +15,9 @@ namespace Xbim.BCF.XMLNodes
             get { return _guid; }
             set
             {
-                if (value == null || value == System.Guid.Empty)
+                if (value == System.Guid.Empty)
                 {
-                    throw new ArgumentException(this.GetType().Name + " - Guid attribute is mandatory and must contain a valid Guid value");
+                    Validator.RaiseError(nameof(BCFViewpoint), "Guid attribute is mandatory and must contain a valid Guid value");
                 }
                 else
                 {
