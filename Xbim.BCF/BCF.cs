@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Compression;
 using System.IO;
+using System.IO.Compression;
+using System.Linq;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 
@@ -58,7 +59,7 @@ namespace Xbim.BCF
                     Topic currentTopic = null;
                     Guid currentGuid = Guid.Empty;
                     ZipArchive archive = new ZipArchive(bcfZipData);
-                    foreach (ZipArchiveEntry entry in archive.Entries)
+                    foreach (ZipArchiveEntry entry in archive.Entries.OrderBy(e => e.FullName))
                     {
                         if (entry.FullName.EndsWith(".bcfp", StringComparison.OrdinalIgnoreCase))
                         {
@@ -72,12 +73,7 @@ namespace Xbim.BCF
                         {
                             if (entry.ExtractGuidFolderName() != currentGuid)
                             {
-                                if (currentTopic != null)
-                                {
-                                    bcf.Topics.Add(currentTopic);
-                                }
-                                currentGuid = entry.ExtractGuidFolderName();
-                                currentTopic = new Topic();
+                                currentGuid = CreateNewTopic(bcf, ref currentTopic, entry);
                             }
                             currentTopic.Markup = new MarkupXMLFile(XDocument.Load(entry.Open()));
                         }
@@ -85,12 +81,7 @@ namespace Xbim.BCF
                         {
                             if (entry.ExtractGuidFolderName() != currentGuid)
                             {
-                                if (currentTopic != null)
-                                {
-                                    bcf.Topics.Add(currentTopic);
-                                }
-                                currentGuid = entry.ExtractGuidFolderName();
-                                currentTopic = new Topic();
+                                currentGuid = CreateNewTopic(bcf, ref currentTopic, entry);
                             }
                             currentTopic.Visualizations.Add(entry.ExtractFileName(), new VisualizationXMLFile(XDocument.Load(entry.Open())));
                         }
@@ -98,12 +89,7 @@ namespace Xbim.BCF
                         {
                             if (entry.ExtractGuidFolderName() != currentGuid)
                             {
-                                if (currentTopic != null)
-                                {
-                                    bcf.Topics.Add(currentTopic);
-                                }
-                                currentGuid = entry.ExtractGuidFolderName();
-                                currentTopic = new Topic();
+                                currentGuid = CreateNewTopic(bcf, ref currentTopic, entry);
                             }
                             using (MemoryStream ms = new MemoryStream())
                             {
@@ -123,6 +109,18 @@ namespace Xbim.BCF
             {
                 Instance = null;
             }
+        }
+
+        private static Guid CreateNewTopic(BCF bcf, ref Topic currentTopic, ZipArchiveEntry entry)
+        {
+            Guid currentGuid;
+            if (currentTopic != null)
+            {
+                bcf.Topics.Add(currentTopic);
+            }
+            currentGuid = entry.ExtractGuidFolderName();
+            currentTopic = new Topic();
+            return currentGuid;
         }
 
         /// <summary>
