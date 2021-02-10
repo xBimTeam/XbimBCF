@@ -64,7 +64,7 @@ namespace Xbim.BCF.XMLNodes
             Visibility = visibility != null ? new BCFComponentVisibility(visibility) : null;
             var coloring = node.Element("Coloring");
             if (coloring != null)
-                Colorings = new List<BCFComponentColoringColor>(coloring.Elements("Color").Select(c => new BCFComponentColoringColor(c.Attribute("Color")?.Value)));
+                Colorings = new List<BCFComponentColoringColor>(coloring.Elements("Color").Select(c => new BCFComponentColoringColor(c)));
         }
     }
 }
