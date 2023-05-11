@@ -27,6 +27,12 @@ namespace Xbim.BCF.XMLNodes
 
         public BCFProject(XElement node)
         {
+            if(node == null)
+            {
+                ProjectId = "";
+                Name = "";
+                return;
+            }
             ProjectId = (string)node.Attribute("ProjectId") ?? "";
             Name = (string)node.Element("Name") ?? "";
         }

@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<TargetFrameworks>net45;netstandard2.0;</TargetFrameworks>
+		<TargetFrameworks>net472;netstandard2.0;</TargetFrameworks>
 		<Title>Xbim BCF</Title>
 		<Description>Xbim BCF is a standalone Xbim library which allows reading and writing of BCF (https://github.com/BuildingSMART/BCF/) files.</Description>
 		<PackageId>Xbim.Bcf</PackageId>
@@ -9,7 +9,7 @@
 	<ItemGroup>
 		<None Include="..\xbim-toolkit-icon.png" Pack="True" PackagePath="\" />
 	</ItemGroup>
-	<ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+	<ItemGroup Condition="'$(TargetFramework)' == 'net472'">
 	  <Reference Include="System.IO.Compression" />
 	</ItemGroup>
 </Project>
